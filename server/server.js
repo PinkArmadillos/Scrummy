@@ -8,22 +8,11 @@ const router = require('./routes');
 const PORT = 3000;
 
 
-// app.use(express.static('../uploads'));
-/* handle request for static files? */
-// app.use(express.static(path.resolve(__dirname, './client')))
-
-
 app.use(express.json());
 app.use(express.urlencoded({ extended: true}));
 
 app.use('/api', router);
-/**
-* --- Express Routes ---
-* Express will attempt to match these routes in the order they are declared here.
-* If a route handler / middleware handles a request and sends a response without
-* calling `next()`, then none of the route handlers after that route will run!
-* This can be very useful for adding authorization to certain routes...
-*/
+
 
 
 /**

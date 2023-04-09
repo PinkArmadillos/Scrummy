@@ -1,0 +1,63 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  height: 100vw;
+}
+
+header {
+  display: flex;
+  justify-content: center;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.mainContainer {
+  margin: 100px auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.forms {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+form {
+  min-height: 200px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid black;
+  border-radius: 10px;
+}
+
+input, textarea {
+  margin-bottom: 10px;
+}
+
+.scrumboard {
+  display: flex;
+  margin-top: 40px;
+}
+
+.scrumboard div {
+  min-width: 200px;
+  padding: 10px;
+  border: 1px solid black;
+}
+
+h3 {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.story, .task {
+  padding: 10px;
+}
