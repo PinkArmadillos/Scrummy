@@ -19,6 +19,7 @@ scrumController.getStories = (req, res, next) => {
     .catch(e => console.error(e.stack));
 };
 
+
 // GET TASKS
 scrumController.getTasks = (req, res, next) => {
   const tasks = 'SELECT * FROM task';
@@ -33,6 +34,7 @@ scrumController.getTasks = (req, res, next) => {
     .catch(e => console.error(e.stack));
 };
 
+
 // ADD TASK
 scrumController.postTask = (req, res, next) => {
   const { 
@@ -43,8 +45,8 @@ scrumController.postTask = (req, res, next) => {
   } = req.body; 
 
   const newTask = `INSERT INTO task (description, difficulty, status, story_id) VALUES ($1, $2, $3, $4)`; 
+  const task = [description, difficulty, status, story_id];
 
-  const task = [description, difficulty, status, story_id]; 
   db 
     .query(newTask, task)
     .then(data => {
@@ -55,56 +57,70 @@ scrumController.postTask = (req, res, next) => {
     .catch(e => console.error(e.stack));
 }
 
+
 // ADD STORY
 scrumController.postStory = (req, res, next) => {
-
   const { description, color } = req.body; 
-
   const values = [description, color]; 
-
   const storyString = `INSERT INTO story (description, color) VALUES ($1, $2)`;
 
   db 
     .query(storyString, values)
     .then(data => {
-      console.log(`inside of postStory: ${data}`)
-      JSON.stringify(data.rows); 
+      console.log(data);
       return next(); 
     })
-    .catch(e => console.error(e.stack));
+    .catch(err => {
+      const errorObj = {
+        log: 'scrumController.postStory middleware error',
+        status: 501,
+        message: 'Add story failed'
+      };
+      return next(errorObj);
+    });
+};
 
-}; 
 
 // UPDATE TASK STATUS
 scrumController.updateTask = (req, res, next) => {
+  const { status, task_id} = req.body;
+  const values = [ status, task_id ];
+  const queryString = `UPDATE task SET status = $1 WHERE id = $2`;
 
+  db.query(queryString, values)
+    .then(data => {
+      return next();
+    })
+    .catch(err => {
+      const errorObj = {
+        log: 'scrumController.updateTask middleware error',
+        status: 501,
+        message: 'Update task failed'
+      };
+      return next(errorObj);
+    });
+}
+
+
+// DELETE TASK
+scrumController.deleteTask = (req, res, next) => {
+  const id = req.params.id;
+  const values = [id];
+  const queryString = `DELETE FROM task WHERE id = $1`;
+
+  db.query(queryString, values)
+    .then(data => {
+      console.log(data);
+      return next();
+    })
+    .catch(err => {
+      const errorObj = {
+        log: 'scrumController.deleteTask middleware error',
+        status: 501,
+        message: 'Delete task failed'
+      };
+      return next(errorObj);
+    })
 }
 
 module.exports = scrumController;
-
-// starWarsController.addCharacter = (req, res, next) => {
-//   // write code here
-//   const {
-//     name, 
-//     gender, 
-//     species_id, 
-//     birth_year, 
-//     eye_color, 
-//     skin_color, 
-//     hair_color, 
-//     mass, 
-//     height, 
-//     homeworld_id
-//   } = req.body;
-//   const newChar = 'INSERT INTO people(name, gender, species_id, birth_year, eye_color, skin_color, hair_color, mass, height, homeworld_id) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)';
-//   const people = [name, gender, species_id, birth_year, eye_color, skin_color, hair_color, mass, height, homeworld_id];
-//   db
-//     .query(newChar, people)
-//     .then(data => {
-//       console.log('working')
-//       res.locals = JSON.stringify(data.rows);
-//       return next();
-//     })
-//     .catch(e => console.error(e.stack));
-//   // next();
-// };
