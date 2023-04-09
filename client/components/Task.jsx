@@ -14,8 +14,12 @@ export default function Task( { task, fetchCounter }) {
         'Content-type': 'application/json'
       }
     })
-      .then(fetchCounter())
-      .catch();
+      .then(() => {
+        fetchCounter();
+      })
+      .catch(err => {
+        console.log({ err: 'Error updating task status' });
+      });
   }
 
   // MAKE DELTE REQUEST TO DELETE TASK
@@ -23,15 +27,19 @@ export default function Task( { task, fetchCounter }) {
     fetch(`/api/task/${id}`, {
       method: 'DELETE',
     })
-      .then(fetchCounter())
-      .catch();
+      .then(() => {
+        fetchCounter();
+      })
+      .catch(err => {
+        console.log({ err: 'Error deleting task' });
+      });
   }
 
   // RENDER TASK COMPONENT
   return (
-    <div className="task">
+    <div className="task" style={{backgroundColor: task.color}}>
       <p>{task.description}</p>
-      <p>Person</p>
+      <p>{task.name}</p>
       <p>{task.difficulty}</p>
       <select onChange={(e)=>changeStatus(e.target.value)}>
         <option value="" hidden>Change status</option>

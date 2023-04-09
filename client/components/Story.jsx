@@ -7,11 +7,16 @@ export default function Story({ story, fetchCounter }) {
     fetch(`/api/story/${id}`, {
       method: 'DELETE',
     })
-      .then(fetchCounter());
+      .then(() => {
+        fetchCounter();
+      })
+      .catch(err => {
+        console.log({ err: 'Error deleting story' });
+      });
   }
 
   return (
-    <div className="story">
+    <div className="story" style={{backgroundColor: story.color}}>
       <p>{story.description}</p>
       <button type="button" onClick={()=>deleteStory(story.id)}>Delete</button>
     </div>

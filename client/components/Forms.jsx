@@ -1,11 +1,13 @@
 import { useState } from 'react';
 import React from 'react';
 
-export default function Forms({ fetchCounter }) {
+export default function Forms({ fetchCounter, storyList }) {
   const [ taskDesc, setTaskDesc ] = useState('');
   const [ taskOwner, setTaskOwner ] = useState('');
   const [ taskDiff, setTaskDiff ] = useState('');
-  const [ storyDesc, setStoryDesc ] = useState('')
+  const [ taskColor, setTaskColor ] = useState('');
+  const [ storyDesc, setStoryDesc ] = useState('');
+  const [ storyColor, setStoryColor ] = useState('');
 
 
   function addTask(event) {
@@ -18,10 +20,16 @@ export default function Forms({ fetchCounter }) {
       body: JSON.stringify({
         taskDesc,
         taskOwner,
-        taskDiff
+        taskDiff,
+        taskColor
       }),
     })
-    .then(fetchCounter());
+    .then(() => {
+      fetchCounter();
+    })
+    .catch(err => {
+      console.log({ err: 'Error adding task' });
+    });
   }
 
   function addStory(event) {
@@ -32,10 +40,26 @@ export default function Forms({ fetchCounter }) {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        storyDesc
+        storyDesc,
+        storyColor
       }),
     })
-    .then(fetchCounter());
+    .then(()=> {
+      setStoryColor('');
+      fetchCounter();
+    })
+    .catch(err => {
+      console.log({ err: 'Error adding story' });
+    });
+  }
+
+  // ARRAY OF STORY DESCRIPTIONS
+  const descArr = [];
+  // iterate through storyList
+  for (const story of storyList) {
+    const shortDescription = story.description.slice(0, 20);
+    const optionKey = `desc${story.id}`;
+    descArr.push(<option key={optionKey} value={story.color}>{shortDescription}</option>);
   }
 
   return (
@@ -44,18 +68,28 @@ export default function Forms({ fetchCounter }) {
         <h3>New Task</h3>
         <label htmlFor="task-desc">Description:</label>
         <textarea id="task-desc" name="task-desc" onChange={(e)=>setTaskDesc(e.target.value)}></textarea>
+        <label htmlFor="related-story">Related Story</label>
+        <select onChange={(e) => setTaskColor(e.target.value)}>
+          {descArr}
+        </select>
         <label htmlFor="task-owner">Task Owner:</label>
         <input id="task-owner" name="task-owner" type="text" onChange={(e)=>setTaskOwner(e.target.value)}></input>
         <label htmlFor="task-diff">Difficulty:</label>
         <input id="task-diff" name="task-diff" type="number" onChange={(e)=>setTaskDiff(e.target.value)}></input>
-        <input type="submit" value="Add Task" id="submit-task" onSubmit={addTask}/>
+        <input type="submit" value="Add Task" id="submit-task"/>
       </form>
 
       <form id="add-story" onSubmit={addStory}>
         <h3>New Story</h3>
         <label htmlFor="story-desc">Description:</label>
         <textarea id="story-desc" name="story-desc" onChange={(e)=>setStoryDesc(e.target.value)}></textarea>
-        <input id="submit-story" type="submit" value="Add Story" onSubmit={addStory}/>
+        <select onChange={(e)=>setStoryColor(e.target.value)}>
+          <option value="" hidden>Choose Color</option>
+          <option value="red">Red</option>
+          <option value="green">Green</option>
+          <option value="blue">Blue</option>
+        </select>
+        <input id="submit-story" type="submit" value="Add Story"/>
       </form>
       
     </div>

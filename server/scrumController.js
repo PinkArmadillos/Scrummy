@@ -6,43 +6,55 @@ const scrumController = {};
 
 // GET STORIES
 scrumController.getStories = (req, res, next) => {
-  const stories = 'SELECT * FROM story';
+  const queryStr = 'SELECT * FROM story';
 
-  db
-    .query(stories)
+  db.query(queryStr)
     .then(data => {
       res.locals.stories = data.rows;
       return next();
     })
-    .catch(e => console.error(e.stack));
+    .catch(err => {
+      const errorObj = {
+        log: 'scrumController.getStories middleware error',
+        status: 501,
+        message: 'Unable to fetch stories'
+      };
+      return next(errorObj);
+    });
 };
 
 
 // GET TASKS
 scrumController.getTasks = (req, res, next) => {
-  const tasks = 'SELECT * FROM task';
+  const queryStr = 'SELECT * FROM task';
 
-  db
-    .query(tasks)
+  db.query(queryStr)
     .then(data => {
       res.locals.tasks = data.rows;
       return next();
     })
-    .catch(e => console.error(e.stack));
+    .catch(err => {
+      const errorObj = {
+        log: 'scrumcontroller.getTasks middleware error',
+        status: 501,
+        message: 'Unable to fetch tasks'
+      };
+      return next(errorObj);
+    });
 };
 
 
 // ADD TASK
 scrumController.postTask = (req, res, next) => {
-  const { taskDesc, taskDiff, taskOwner } = req.body;
-  const values = [ taskDesc, taskDiff, taskOwner ];
+  const { taskDesc, taskDiff, taskOwner, taskColor } = req.body;
+  const values = [ taskDesc, taskDiff, taskOwner, taskColor ];
   const queryString = `
-  INSERT INTO task (description, difficulty, name)
-  VALUES ($1, $2, $3)`;
+  INSERT INTO task (description, difficulty, name, color)
+  VALUES ($1, $2, $3, $4)`;
 
   db.query(queryString, values)
     .then(data => {
-      return next(); 
+      return next();
     })
     .catch(err => {
       const errorObj = {
@@ -57,9 +69,9 @@ scrumController.postTask = (req, res, next) => {
 
 // ADD STORY
 scrumController.postStory = (req, res, next) => {
-  const { storyDesc } = req.body; 
-  const values = [storyDesc]; 
-  const storyString = `INSERT INTO story (description) VALUES ($1)`;
+  const { storyDesc, storyColor } = req.body; 
+  const values = [ storyDesc, storyColor ]; 
+  const storyString = `INSERT INTO story (description, color) VALUES ($1, $2)`;
 
   db.query(storyString, values)
     .then(data => {
