@@ -1,4 +1,8 @@
+import { useState } from 'react';
 import React from 'react';
+
+import Story from './Story';
+import Task from './Task';
 
 export default function Scrumboard(props) {
   const [items, setItems] = useState([]);
@@ -8,7 +12,6 @@ export default function Scrumboard(props) {
     
 
   // fetch request to server to populate task and stories array
-
   
 
   function displayTasks(array) {
@@ -38,29 +41,29 @@ export default function Scrumboard(props) {
 
   return (
     <div className="scrumboard">
-      <div id="backlog" classname="column">
+      <div id="backlog" className="column">
         <h3>Backlog</h3>
-        {backlogTasks}
+        
       </div>
-      <div id="stories" classname="column">
+      <div id="stories" className="column">
         <h3>Stories</h3>
-        {stories}
+        <Story/>
       </div>
-      <div id="todo" classname="column">
+      <div id="todo" className="column">
         <h3>To Do</h3>
-        {todoTasks}
+        <Task/>
       </div>
-      <div id="inProgress" classname="column">
+      <div id="inProgress" className="column">
         <h3>In Progress</h3>
-        {inProgTasks}
+        
       </div>
-      <div id="toVerify" classname="column">
+      <div id="toVerify" className="column">
         <h3>To Verify</h3>
-        {toVerifyTasks}
+        
       </div>
-      <div id="done" classname="column">
+      <div id="done" className="column">
         <h3>Done</h3>
-        {doneTasks}
+        
       </div>
     </div>
   )
