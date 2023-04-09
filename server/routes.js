@@ -32,4 +32,9 @@ router.delete('/task/:id', controller.deleteTask, (req, res) => {
   return res.status(200).end('Task Deleted');
 })
 
+// delete story
+router.delete('/story/:id', controller.deleteStory, (req, res) => {
+  return res.status(200).end('Story Deleted');
+})
+
 module.exports = router;
