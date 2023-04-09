@@ -4,6 +4,11 @@
   box-sizing: border-box;
 }
 
+body {
+  background-color: #04151F;
+  color: white;
+}
+
 #root {
   display: flex;
   flex-direction: column;
@@ -34,7 +39,7 @@ form {
   padding: 20px;
   display: flex;
   flex-direction: column;
-  border: 1px solid black;
+  border: 1px solid white;
   border-radius: 10px;
 }
 
@@ -50,7 +55,7 @@ input, textarea {
 .scrumboard div {
   min-width: 200px;
   padding: 10px;
-  border: 1px solid black;
+  border: 1px solid white;
 }
 
 h3 {
@@ -60,4 +65,5 @@ h3 {
 
 .story, .task {
   padding: 10px;
+  margin-bottom: 20px;
 }
