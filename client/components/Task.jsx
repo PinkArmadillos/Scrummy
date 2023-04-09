@@ -1,19 +1,45 @@
 import React from 'react';
 
 export default function Task( { task, fetchCounter }) {
+
+  // MAKE PATCH REQUEST TO UPDATE TASK STATUS
+  function changeStatus(newStatus) {
+    fetch('/api/task', {
+      method: 'PATCH',
+      body: JSON.stringify({
+        status: newStatus,
+        task_id: task.id
+      }),
+      headers: {
+        'Content-type': 'application/json'
+      }
+    })
+      .then(fetchCounter());
+  }
+
+  // MAKE DELTE REQUEST TO DELETE TASK
+  function deleteTask(id) {
+    fetch(`/api/task/${id}`, {
+      method: 'DELETE',
+    })
+      .then(fetchCounter());
+  }
+
+  // RENDER TASK COMPONENT
   return (
     <div className="task">
       <p>{task.description}</p>
       <p>Person</p>
       <p>{task.difficulty}</p>
-      <select>
+      <select onChange={(e)=>changeStatus(e.target.value)}>
+        <option value="" hidden>Change status</option>
         <option value="backlog">Backlog</option>
         <option value="todo">To Do</option>
         <option value="inProgress">In Progress</option>
         <option value="toVerify">To Verify</option>
         <option value="done">Done</option>
       </select>
-      <button type="button">Delete</button>
+      <button type="button" onClick={()=>deleteTask(task.id)}>Delete</button>
     </div>
   )
 }

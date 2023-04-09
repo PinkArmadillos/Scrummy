@@ -6,9 +6,9 @@ import Forms from './Forms';
 export default function MainContainer() {
   const [stories, setStories] = useState([]);
   const [tasks, setTasks] = useState([]);
-  const [fetchCounter, updateFetchCounter] = useState(0);
+  const [fetchCounter, setFetchCounter] = useState(0);
 
-  // fetch data everytime counter changes
+  // FETCH DATA EVERYTIME COUNTER CHANGES
   useEffect(() => {
     fetch('/api/')
       .then(data => data.json())
@@ -19,10 +19,12 @@ export default function MainContainer() {
       })
   },[fetchCounter]);
 
+  // FUNCTION TO CHANGE STATE OF FETCHCOUNTER
   const incrementCounter = () => {
-    updateFetchCounter(fetchCounter + 1);
+    setFetchCounter(fetchCounter + 1);
   }
 
+  // RENDER MAINCONTAINER
   return (
     <div className="mainContainer">
       <Forms fetchCounter={incrementCounter}/>

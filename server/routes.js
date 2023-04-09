@@ -19,13 +19,17 @@ router.post('/task', controller.postTask, (req, res) => {
 
 // create new story
 router.post('/story', controller.postStory, (req, res) => {
-  res.sendStatus(200); 
+  return res.status(200).end('Story added');
 })
 
 // update task
 router.patch('/task', controller.updateTask, (req, res) => {
-  return res.status(200).end('Updated task')
+  return res.status(200).end('Updated task');
 })
 
+// delete task
+router.delete('/task/:id', controller.deleteTask, (req, res) => {
+  return res.status(200).end('Task Deleted');
+})
 
 module.exports = router;
