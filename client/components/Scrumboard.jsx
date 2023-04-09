@@ -4,33 +4,33 @@ import Story from './Story';
 import Task from './Task';
 
 export default function Scrumboard({ storyList, taskList, fetchCounter }) {
-  
+
   // TASKS BY STATUS
   const backlogTasks = [];
   const todoTasks = [];
   const inProgTasks = [];
   const toVerifyTasks = [];
   const doneTasks = [];
-  
+
   // DIVIDE TASKS BY STATUS
   for (const el of taskList) {
     if (el.status === 'backlog') {
-      backlogTasks.push(<Task key={el.id} task={el} fetchCounter={fetchCounter}/>)
+      backlogTasks.push(<Task key={el.id} task={el} fetchCounter={fetchCounter} />)
     } else if (el.status === 'todo') {
-      todoTasks.push(<Task key={el.id} task={el} fetchCounter={fetchCounter}/>)
+      todoTasks.push(<Task key={el.id} task={el} fetchCounter={fetchCounter} />)
     } else if (el.status === 'inProgress') {
-      inProgTasks.push(<Task key={el.id} task={el} fetchCounter={fetchCounter}/>)
+      inProgTasks.push(<Task key={el.id} task={el} fetchCounter={fetchCounter} />)
     } else if (el.status === 'toVerify') {
-      toVerifyTasks.push(<Task key={el.id} task={el} fetchCounter={fetchCounter}/>)
+      toVerifyTasks.push(<Task key={el.id} task={el} fetchCounter={fetchCounter} />)
     } else if (el.status === 'done') {
-      doneTasks.push(<Task key={el.id} task={el} fetchCounter={fetchCounter}/>)
+      doneTasks.push(<Task key={el.id} task={el} fetchCounter={fetchCounter} />)
     }
   }
 
   // POPULATE ARRAY OF STORY COMPONENTS
   const stories = [];
   for (const el of storyList) {
-    stories.push(<Story key={el.id} story={el} fetchCounter={fetchCounter}/>);
+    stories.push(<Story key={el.id} story={el} fetchCounter={fetchCounter} />);
   }
 
   // RENDER SCRUMBOARD

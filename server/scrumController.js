@@ -7,6 +7,7 @@ const scrumController = {};
 // GET STORIES
 scrumController.getStories = (req, res, next) => {
   const stories = 'SELECT * FROM story';
+  console.log('inside getStories')
 
   db
     .query(stories)
