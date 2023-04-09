@@ -4,66 +4,60 @@ import React from 'react';
 import Story from './Story';
 import Task from './Task';
 
-export default function Scrumboard(props) {
-  const [items, setItems] = useState([]);
-  // state
-    // tasks array
-    // stories array
-    
-
-  // fetch request to server to populate task and stories array
+export default function Scrumboard({ storyList, taskList, fetchCounter }) {
   
+  // TASKS BY STATUS
+  const backlogTasks = [];
+  const todoTasks = [];
+  const inProgTasks = [];
+  const toVerifyTasks = [];
+  const doneTasks = [];
 
-  function displayTasks(array) {
-    const backlogTasks = [];
-    const stories = [];
-    const todoTasks = [];
-    const inProgTasks = [];
-    const toVerifyTasks = [];
-    const doneTasks = [];
-
-    for (const el of array) {
-      if (el.status === 'backlog') {
-        backlogTasks.push(<Task task={el}/>)
-      } else if (el.status === 'stories') {
-        stories.push(<Story story={el}/>)
-      } else if (el.status === 'todo') {
-        todoTasks.push(<Story story={el}/>)
-      } else if (el.status === 'inProgress') {
-        inProgTasks.push(<Story story={el}/>)
-      } else if (el.status === 'toVerify') {
-        toVerifyTasks.push(<Story story={el}/>)
-      } else if (el.status === 'done') {
-        doneTasks.push(<Story story={el}/>)
-      }
+  for (const el of taskList) {
+    if (el.status === 'backlog') {
+      backlogTasks.push(<Task task={el} fetchCounter={fetchCounter}/>)
+    } else if (el.status === 'todo') {
+      todoTasks.push(<Task task={el} fetchCounter={fetchCounter}/>)
+    } else if (el.status === 'inProgress') {
+      inProgTasks.push(<Task task={el} fetchCounter={fetchCounter}/>)
+    } else if (el.status === 'toVerify') {
+      toVerifyTasks.push(<Task task={el} fetchCounter={fetchCounter}/>)
+    } else if (el.status === 'done') {
+      doneTasks.push(<Task task={el} fetchCounter={fetchCounter}/>)
     }
+  }
+
+  const stories = [];
+
+  for (const el of storyList) {
+    stories.push(<Story story={el} fetchCounter={fetchCounter}/>);
   }
 
   return (
     <div className="scrumboard">
       <div id="backlog" className="column">
         <h3>Backlog</h3>
-        
+        {backlogTasks}
       </div>
       <div id="stories" className="column">
         <h3>Stories</h3>
-        <Story/>
+        {stories}
       </div>
       <div id="todo" className="column">
         <h3>To Do</h3>
-        <Task/>
+        {todoTasks}
       </div>
       <div id="inProgress" className="column">
         <h3>In Progress</h3>
-        
+        {inProgTasks}
       </div>
       <div id="toVerify" className="column">
         <h3>To Verify</h3>
-        
+        {toVerifyTasks}
       </div>
       <div id="done" className="column">
         <h3>Done</h3>
-        
+        {doneTasks}
       </div>
     </div>
   )

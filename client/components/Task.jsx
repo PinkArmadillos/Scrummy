@@ -1,12 +1,12 @@
 import React from 'react';
 
-export default function Task(props) {
+export default function Task( { task, fetchCounter }) {
   return (
     <div className="task">
-      <p>Task Description</p>
-      <p>Task Owner</p>
-      <p>Difficulty</p>
-      <select onChange={props.changeStatus}>
+      <p>{task.description}</p>
+      <p>Person</p>
+      <p>{task.difficulty}</p>
+      <select>
         <option value="backlog">Backlog</option>
         <option value="todo">To Do</option>
         <option value="inProgress">In Progress</option>

@@ -3,6 +3,8 @@ const express = require('express');
 
 const scrumController = {};
 
+
+// GET STORIES
 scrumController.getStories = (req, res, next) => {
   const stories = 'SELECT * FROM story';
 
@@ -17,6 +19,7 @@ scrumController.getStories = (req, res, next) => {
     .catch(e => console.error(e.stack));
 };
 
+// GET TASKS
 scrumController.getTasks = (req, res, next) => {
   const tasks = 'SELECT * FROM task';
 
@@ -30,7 +33,7 @@ scrumController.getTasks = (req, res, next) => {
     .catch(e => console.error(e.stack));
 };
 
-
+// ADD TASK
 scrumController.postTask = (req, res, next) => {
   const { 
     description, 
@@ -38,7 +41,6 @@ scrumController.postTask = (req, res, next) => {
     status, 
     story_id
   } = req.body; 
-
 
   const newTask = `INSERT INTO task (description, difficulty, status, story_id) VALUES ($1, $2, $3, $4)`; 
 
@@ -51,10 +53,9 @@ scrumController.postTask = (req, res, next) => {
       return next(); 
     })
     .catch(e => console.error(e.stack));
-
-
 }
 
+// ADD STORY
 scrumController.postStory = (req, res, next) => {
 
   const { description, color } = req.body; 
@@ -73,6 +74,11 @@ scrumController.postStory = (req, res, next) => {
     .catch(e => console.error(e.stack));
 
 }; 
+
+// UPDATE TASK STATUS
+scrumController.updateTask = (req, res, next) => {
+
+}
 
 module.exports = scrumController;
 
