@@ -13,11 +13,13 @@ export default function MainContainer() {
     fetch('/api/')
       .then(data => data.json())
       .then(data => {
-        console.log(data);
         setStories(data.stories);
         setTasks(data.tasks);
       })
-  },[fetchCounter]);
+      .catch(err => {
+        console.log({ err: 'Error fetching task and story data'});
+      })
+  }, [fetchCounter]);
 
   // FUNCTION TO CHANGE STATE OF FETCHCOUNTER
   const incrementCounter = () => {
@@ -27,7 +29,7 @@ export default function MainContainer() {
   // RENDER MAINCONTAINER
   return (
     <div className="mainContainer">
-      <Forms fetchCounter={incrementCounter}/>
+      <Forms fetchCounter={incrementCounter} storyList={stories}/>
       <Scrumboard storyList={stories} taskList={tasks} fetchCounter={incrementCounter}/>
     </div>
   )
