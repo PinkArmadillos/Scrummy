@@ -13,7 +13,7 @@ export default function Forms({ fetchCounter }) {
     fetch('/api/task', {
       method: 'POST',
       headers: {
-        'Content-Type': 'Application/Json'
+        'Content-Type': 'application/json'
       },
       body: JSON.stringify({
         taskDesc,
@@ -21,33 +21,21 @@ export default function Forms({ fetchCounter }) {
         taskDiff
       }),
     })
-    .then(res => res.json())
-    .then(response => {
-      console.log("task added: ", response)
-    })
-    .catch(err => {
-      console.log({err: 'addTask error'})
-    })
+    .then(fetchCounter());
   }
 
   function addStory(event) {
     event.preventDefault();
-    fetch('/api/addStory', {
+    fetch('/api/story', {
       method: 'POST',
       headers: {
-        'Content-Type': 'Application/Json'
+        'Content-Type': 'application/json'
       },
       body: JSON.stringify({
         storyDesc
       }),
     })
-    .then(res => res.json())
-    .then(response => {
-      console.log("story added: ", response)
-    })
-    .catch(err => {
-      console.log({err: 'addStory error'})
-    })
+    .then(fetchCounter());
   }
 
   return (

@@ -14,7 +14,8 @@ export default function Task( { task, fetchCounter }) {
         'Content-type': 'application/json'
       }
     })
-      .then(fetchCounter());
+      .then(fetchCounter())
+      .catch();
   }
 
   // MAKE DELTE REQUEST TO DELETE TASK
@@ -22,7 +23,8 @@ export default function Task( { task, fetchCounter }) {
     fetch(`/api/task/${id}`, {
       method: 'DELETE',
     })
-      .then(fetchCounter());
+      .then(fetchCounter())
+      .catch();
   }
 
   // RENDER TASK COMPONENT
