@@ -5,7 +5,7 @@ Currently, this version does not allow for individual teams.
 A workaround would be for your team to create their own database and link to it within the scrumModels.js file.
 
 Stretch goals:
-  Teams being able to access their own scrumboard without changing database link
-  Bcrypt authentication
-  Responsive styling
+  Teams being able to access their own scrumboard without changing database link,
+  Bcrypt authentication,
+  Responsive styling,
   Drag and drop feature for task components
