@@ -35,9 +35,11 @@ export default function Task( { task, fetchCounter }) {
       });
   }
 
+  const classes = `task ${task.color}`;  // rgb()
+
   // RENDER TASK COMPONENT
   return (
-    <div className="task" style={{backgroundColor: task.color}}>
+    <div className={classes}>
       <p>{task.description}</p>
       <p>{task.name}</p>
       <p>{task.difficulty}</p>

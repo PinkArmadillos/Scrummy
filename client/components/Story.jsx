@@ -15,8 +15,10 @@ export default function Story({ story, fetchCounter }) {
       });
   }
 
+  const classes = `story ${story.color}`
+
   return (
-    <div className="story" style={{backgroundColor: story.color}}>
+    <div className={classes}>
       <p>{story.description}</p>
       <button type="button" onClick={()=>deleteStory(story.id)}>Delete</button>
     </div>
