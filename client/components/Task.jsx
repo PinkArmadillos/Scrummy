@@ -35,14 +35,14 @@ export default function Task( { task, fetchCounter }) {
       });
   }
 
-  const classes = `task ${task.color}`;  // rgb()
+  const classes = `task ${task.color}`;
 
   // RENDER TASK COMPONENT
   return (
     <div className={classes}>
-      <p>{task.description}</p>
-      <p>{task.name}</p>
-      <p>{task.difficulty}</p>
+      <p><span class="task-label">Task</span>{task.description}</p>
+      <p><span class="task-label">Name</span>{task.name}</p>
+      <p><span class="task-label">Difficulty</span>{task.difficulty}</p>
       <select onChange={(e)=>changeStatus(e.target.value)}>
         <option value="" hidden>Change status</option>
         <option value="backlog">Backlog</option>

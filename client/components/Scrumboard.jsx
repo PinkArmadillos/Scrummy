@@ -38,26 +38,32 @@ export default function Scrumboard({ storyList, taskList, fetchCounter }) {
     <div className="scrumboard">
       <div id="backlog" className="column">
         <h3>Backlog</h3>
+        <hr/>
         {backlogTasks}
       </div>
       <div id="stories" className="column">
         <h3>Stories</h3>
+        <hr/>
         {stories}
       </div>
       <div id="todo" className="column">
         <h3>To Do</h3>
+        <hr/>
         {todoTasks}
       </div>
       <div id="inProgress" className="column">
         <h3>In Progress</h3>
+        <hr/>
         {inProgTasks}
       </div>
       <div id="toVerify" className="column">
         <h3>To Verify</h3>
+        <hr/>
         {toVerifyTasks}
       </div>
       <div id="done" className="column">
         <h3>Done</h3>
+        <hr/>
         {doneTasks}
       </div>
     </div>
