@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Indie+Flower&family=Pacifico&display=swap');
+
+
 * {
   margin: 0;
   padding: 0;
@@ -18,12 +21,20 @@ body {
 header {
   display: flex;
   justify-content: center;
-  padding-top: 20px;
-  padding-bottom: 20px;
+  padding: 20px 0;
+  background-color: rgb(46, 46, 46);
+  border-bottom: 10px ridge rgb(198, 198, 198);
+  box-shadow: 2px 2px 10px rgb(0, 0, 0);
+}
+
+h1 {
+  font-family: 'Indie Flower', cursive;
+  font-size: 2.5em;
+  color: rgb(255, 255, 255);
 }
 
 .mainContainer {
-  margin: 50px auto 0 auto;
+  margin: 40px auto 0 auto;
   display: flex;
   flex-direction: row;
 }
@@ -31,19 +42,19 @@ header {
 .forms {
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
 }
 
 #add-task, #add-story {
   display: flex;
-  min-height: 200px;
+  margin: 0 40px 40px 0;
   padding: 20px;
   display: flex;
   flex-direction: column;
-  border: 1px solid rgb(0, 0, 0);
-  background-color:#e6e6e6;
+  border: 10px ridge rgb(198, 198, 198);
+  background-color: rgb(46, 46, 46);
+  color:rgb(255, 255, 255);
   border-radius: 10px;
-  box-shadow: 2px 2px 10px #000000;
+  box-shadow: 2px 2px 10px rgb(0, 0, 0);
 }
 
 input, textarea, select {
@@ -52,45 +63,69 @@ input, textarea, select {
 
 .scrumboard {
   display: flex;
-  border: 1px solid #000000;
+  border: 10px ridge rgb(198, 198, 198);
   border-radius: 10px;
-  
-  box-shadow: 2px 2px 10px #000000;
+  background-color: rgb(46, 46, 46);
+  box-shadow: 2px 2px 10px rgb(0, 0, 0);
   padding: 20px;
 }
 
-.scrumboard div {
-  min-width: 200px;
+.column {
+  height: 700px;
+  width: 200px;
   padding: 10px;
 }
 
 h3 {
+  color:rgb(255, 255, 255);
   text-align: center;
+  margin-bottom: 10px;
+}
+
+hr {
   margin-bottom: 10px;
 }
 
 .story {
   padding: 10px;
-  border-radius: 10px;
-  box-shadow: 2px 2px 5px #000000;
+  box-shadow: 2px 2px 5px rgb(0, 0, 0);
   margin-bottom: 20px;
 }
 
 .task {
   padding: 10px;
-  border-radius: 10px;
-  box-shadow: 2px 2px 5px #000000;
+  box-shadow: 2px 2px 5px rgb(0, 0, 0);
   margin-bottom: 20px;
+  word-wrap: break-word;
 }
 
-.r213g0b0 {
-  background-color: rgb(213, 0, 0);
+.task-label {
+  font-weight: bold;
+  margin-right: 10px;
 }
 
-.r6g167b0 {
-  background-color: rgb(6, 167, 0);
+/* Task and Story component colors */
+/* Thistle */
+.r215g188b200 {
+  background-color: rgb(215, 188, 200);
 }
 
+/* Zomp */
+.r98g150b119 {
+  background-color: rgb(98, 150, 119);
+}
+
+/* Uranian blue */
 .r163g206b241 {
   background-color: rgb(163, 206, 241);
+}
+
+/* Atomic tangerine */
+.r242g149b89 {
+  background-color: rgb(242, 149, 89);
+}
+
+/* Vanilla */
+.r232g225b155 {
+  background-color: rgb(232, 225, 155);
 }
