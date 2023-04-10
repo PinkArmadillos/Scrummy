@@ -3,17 +3,21 @@ const path = require('path');
 
 module.exports = {
   mode: process.env.NODE_ENV,
+
   entry: './client/index.js',
+
   output: {
     path: path.join(__dirname, 'build'),
     filename: 'bundle.js'
   },
+
   plugins: [
     new HTMLWebpackPlugin({
       title: 'Development',
       template: './client/index.html'
     })
   ],
+
   devServer: {
     static: {
       publicPath: '/build',
@@ -22,7 +26,8 @@ module.exports = {
     proxy: {
       '/api': 'http://localhost:3000'
     }
-  },  
+  },
+
   module: {
     rules: [
       {

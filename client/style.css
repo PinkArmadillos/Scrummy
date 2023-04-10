@@ -1,0 +1,133 @@
+@import url('https://fonts.googleapis.com/css2?family=Indie+Flower&family=Pacifico&display=swap');
+
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: sans-serif;
+  background-image: linear-gradient(rgb(255, 0, 170, 1), rgba(255, 0, 170, 0));
+  color: rgb(0, 0, 0);
+  height: 100vh;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+}
+
+header {
+  display: flex;
+  justify-content: center;
+  padding: 10px 0;
+  background-color: rgb(46, 46, 46);
+  border-bottom: 10px ridge rgb(198, 198, 198);
+  box-shadow: 2px 2px 10px rgb(0, 0, 0);
+}
+
+h1 {
+  font-family: 'Indie Flower', cursive;
+  font-size: 3em;
+  color: rgb(255, 0, 170);
+}
+
+.mainContainer {
+  margin: 40px auto 0 auto;
+  display: flex;
+  flex-direction: row;
+}
+
+.forms {
+  display: flex;
+  flex-direction: column;
+}
+
+#add-task, #add-story {
+  display: flex;
+  margin: 0 40px 40px 0;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  border: 10px ridge rgb(198, 198, 198);
+  background-color: rgb(46, 46, 46);
+  color:rgb(255, 255, 255);
+  border-radius: 10px;
+  box-shadow: 2px 2px 10px rgb(0, 0, 0);
+}
+
+input, textarea, select {
+  margin-bottom: 10px;
+}
+
+.scrumboard {
+  display: flex;
+  border: 10px ridge rgb(198, 198, 198);
+  border-radius: 10px;
+  background-color: rgb(46, 46, 46);
+  box-shadow: 2px 2px 10px rgb(0, 0, 0);
+  padding: 20px;
+}
+
+.column {
+  height: 700px;
+  width: 200px;
+  overflow: auto;
+  padding: 10px;
+}
+
+h3 {
+  color:rgb(255, 255, 255);
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+hr {
+  margin-bottom: 10px;
+}
+
+.story {
+  padding: 10px;
+  box-shadow: 2px 2px 5px rgb(0, 0, 0);
+  margin-bottom: 20px;
+}
+
+.task {
+  padding: 10px;
+  box-shadow: 2px 2px 5px rgb(0, 0, 0);
+  margin-bottom: 20px;
+  word-wrap: break-word;
+}
+
+.task-label {
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+/* Task and Story component colors */
+/* Thistle */
+.r215g188b200 {
+  background-color: rgb(215, 188, 200);
+}
+
+/* Zomp */
+.r98g150b119 {
+  background-color: rgb(98, 150, 119);
+}
+
+/* Uranian blue */
+.r163g206b241 {
+  background-color: rgb(163, 206, 241);
+}
+
+/* Atomic tangerine */
+.r242g149b89 {
+  background-color: rgb(242, 149, 89);
+}
+
+/* Vanilla */
+.r232g225b155 {
+  background-color: rgb(232, 225, 155);
+}
