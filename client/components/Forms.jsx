@@ -25,6 +25,10 @@ export default function Forms({ fetchCounter, storyList }) {
       }),
     })
     .then(() => {
+      setTaskDesc('');
+      setTaskOwner('');
+      setTaskDiff('');
+      setTaskColor('');
       document.querySelector('#add-task').reset();
       fetchCounter();
     })
@@ -47,6 +51,7 @@ export default function Forms({ fetchCounter, storyList }) {
     })
     .then(()=> {
       setStoryColor('');
+      setStoryDesc('');
       document.querySelector('#add-story').reset();
       fetchCounter();
     })
@@ -85,7 +90,6 @@ export default function Forms({ fetchCounter, storyList }) {
         <h3>New Task</h3>
         <label htmlFor="task-desc">Description</label>
         <textarea id="task-desc" name="task-desc" onChange={(e)=>setTaskDesc(e.target.value)}></textarea>
-        <label htmlFor="related-story">Related Story</label>
         <select onChange={(e) => setTaskColor(e.target.value)}>
           <option value="" hidden>Choose Story</option>
           {descArr}
