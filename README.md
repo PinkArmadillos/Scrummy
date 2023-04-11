@@ -9,3 +9,6 @@ Stretch goals:
   Bcrypt authentication,
   Responsive styling,
   Drag and drop feature for task components
+
+database URL: 	postgres://cotveney:BTLV945VDEY_9tcBZDk7tpLlgfhP81K1@lallah.db.elephantsql.com/cotveney
+password: BTLV945VDEY_9tcBZDk7tpLlgfhP81K1
