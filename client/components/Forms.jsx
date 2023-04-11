@@ -12,6 +12,7 @@ export default function Forms({ fetchCounter, storyList }) {
 
   function addTask(event) {
     event.preventDefault();
+    console.log('sending POST addTask from Forms.jsx');
     fetch('/api/task', {
       method: 'POST',
       headers: {
@@ -25,6 +26,7 @@ export default function Forms({ fetchCounter, storyList }) {
       }),
     })
     .then(() => {
+      console.log('we are back in addTask in Form.jsx')
       setTaskDesc('');
       setTaskOwner('');
       setTaskDiff('');
@@ -39,6 +41,7 @@ export default function Forms({ fetchCounter, storyList }) {
 
   function addStory(event) {
     event.preventDefault();
+    console.log('sending POST addStory from Forms.jsx');
     fetch('/api/story', {
       method: 'POST',
       headers: {
@@ -50,6 +53,7 @@ export default function Forms({ fetchCounter, storyList }) {
       }),
     })
     .then(()=> {
+      console.log('we are back in addStory in Form.jsx')
       setStoryColor('');
       setStoryDesc('');
       document.querySelector('#add-story').reset();

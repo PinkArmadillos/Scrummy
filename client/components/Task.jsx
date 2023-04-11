@@ -4,6 +4,7 @@ export default function Task( { task, fetchCounter }) {
 
   // MAKE PATCH REQUEST TO UPDATE TASK STATUS
   function changeStatus(newStatus) {
+    console.log('sending PATCH changeStatus from Task.jsx');
     fetch('/api/task', {
       method: 'PATCH',
       body: JSON.stringify({
@@ -15,6 +16,7 @@ export default function Task( { task, fetchCounter }) {
       }
     })
       .then(() => {
+        console.log('back in changeStatus in Task.jsx');
         fetchCounter();
       })
       .catch(err => {
@@ -24,10 +26,12 @@ export default function Task( { task, fetchCounter }) {
 
   // MAKE DELTE REQUEST TO DELETE TASK
   function deleteTask(id) {
+    console.log('sending DELETE deleteTask from Task.jsx');
     fetch(`/api/task/${id}`, {
       method: 'DELETE',
     })
       .then(() => {
+        console.log('back in deleteTask of Task.jsx');
         fetchCounter();
       })
       .catch(err => {

@@ -6,14 +6,17 @@ const scrumController = {};
 
 // GET STORIES
 scrumController.getStories = (req, res, next) => {
+  console.log('we are in scrumController.getStories');
   const queryStr = 'SELECT * FROM story';
 
   db.query(queryStr)
     .then(data => {
       res.locals.stories = data.rows;
+      console.log('this is the data coming from scrumController.getStories: ', data.rows);
       return next();
     })
     .catch(err => {
+      console.log('Error caught in scrumController.getStories');
       const errorObj = {
         log: 'scrumController.getStories middleware error',
         status: 501,
@@ -26,16 +29,19 @@ scrumController.getStories = (req, res, next) => {
 
 // GET TASKS
 scrumController.getTasks = (req, res, next) => {
+  console.log('we are in scrumController.getTasks');
   const queryStr = 'SELECT * FROM task';
 
   db.query(queryStr)
     .then(data => {
       res.locals.tasks = data.rows;
+      console.log('this is the data coming from scrumController.getTasks: ', data.rows);
       return next();
     })
     .catch(err => {
+      console.log('Error caught in scrumController.getTasks');
       const errorObj = {
-        log: 'scrumcontroller.getTasks middleware error',
+        log: 'scrumController.getTasks middleware error',
         status: 501,
         message: 'Unable to fetch tasks'
       };
@@ -52,11 +58,17 @@ scrumController.postTask = (req, res, next) => {
   INSERT INTO task (description, difficulty, name, color)
   VALUES ($1, $2, $3, $4)`;
 
+  console.log('we are in scrumController.postTask');
+  console.log('in the req.body we have: ', req.body);
+  console.log('which was converted to values: ', values);
+
   db.query(queryString, values)
     .then(data => {
+      console.log('Have returned from the scrumController.postTask query');
       return next();
     })
     .catch(err => {
+      console.log('Error caught in scrumController.postTask');
       const errorObj = {
         log: 'scrumController.postTask middleware error',
         status: 501,
@@ -73,11 +85,17 @@ scrumController.postStory = (req, res, next) => {
   const values = [ storyDesc, storyColor ]; 
   const storyString = `INSERT INTO story (description, color) VALUES ($1, $2)`;
 
+  console.log('we are in scrumController.postStory');
+  console.log('in the req.body we have: ', req.body);
+  console.log('which was converted to values: ', values);
+
   db.query(storyString, values)
     .then(data => {
+      console.log('Have returned from the scrumController.postStory query');
       return next(); 
     })
     .catch(err => {
+      console.log('Error caught in scrumController.postStories');
       const errorObj = {
         log: 'scrumController.postStory middleware error',
         status: 501,
@@ -94,11 +112,17 @@ scrumController.updateTask = (req, res, next) => {
   const values = [ status, task_id ];
   const queryString = `UPDATE task SET status = $1 WHERE id = $2`;
 
+  console.log('we are in scrumController.updateTask');
+  console.log('in the req.body we have: ', req.body);
+  console.log('which was converted to values: ', values);
+
   db.query(queryString, values)
     .then(data => {
+      console.log('Have returned from the scrumController.updateTask query');
       return next();
     })
     .catch(err => {
+      console.log('Error caught in scrumController.updateTask');
       const errorObj = {
         log: 'scrumController.updateTask middleware error',
         status: 501,
@@ -115,11 +139,17 @@ scrumController.deleteTask = (req, res, next) => {
   const values = [id];
   const queryString = `DELETE FROM task WHERE id = $1`;
 
+  console.log('we are in scrumController.deleteTask');
+  console.log('in the req.params.id we have: ', req.params.id);
+  console.log('which was converted to values: ', values);
+
   db.query(queryString, values)
     .then(data => {
+      console.log('Have returned from the scrumController.deleteTask query');
       return next();
     })
     .catch(err => {
+      console.log('Error caught in scrumController.deleteTask');
       const errorObj = {
         log: 'scrumController.deleteTask middleware error',
         status: 501,
@@ -136,11 +166,17 @@ scrumController.deleteStory = (req, res, next) => {
   const values = [id];
   const queryString = `DELETE FROM story WHERE id = $1`;
 
+  console.log('we are in scrumController.deleteStories');
+  console.log('in the req.params.id we have: ', req.params.id);
+  console.log('which was converted to values: ', values);
+
   db.query(queryString, values)
     .then(data => {
+      console.log('Have returned from the scrumController.deleteStory query');
       return next();
     })
     .catch(err => {
+      console.log('Error caught in scrumController.deleteStory');
       const errorObj = {
         log: 'scrumController.deleteStory middleware error',
         status: 501,

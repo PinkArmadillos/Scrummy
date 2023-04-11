@@ -10,6 +10,7 @@ export default function MainContainer() {
 
   // FETCH DATA EVERYTIME COUNTER CHANGES
   useEffect(() => {
+    console.log('fetchCounter has been called and things are updating');
     fetch('/api/')
       .then(data => data.json())
       .then(data => {
