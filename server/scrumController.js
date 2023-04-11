@@ -47,7 +47,7 @@ scrumController.getTasks = (req, res, next) => {
 // ADD TASK
 scrumController.postTask = (req, res, next) => {
   const { taskDesc, taskDiff, taskOwner, taskColor } = req.body;
-  const values = [ taskDesc, taskDiff, taskOwner, taskColor ];
+  const values = [taskDesc, taskDiff, taskOwner, taskColor];
   const queryString = `
   INSERT INTO task (description, difficulty, name, color)
   VALUES ($1, $2, $3, $4)`;
@@ -69,13 +69,13 @@ scrumController.postTask = (req, res, next) => {
 
 // ADD STORY
 scrumController.postStory = (req, res, next) => {
-  const { storyDesc, storyColor } = req.body; 
-  const values = [ storyDesc, storyColor ]; 
+  const { storyDesc, storyColor } = req.body;
+  const values = [storyDesc, storyColor];
   const storyString = `INSERT INTO story (description, color) VALUES ($1, $2)`;
 
   db.query(storyString, values)
     .then(data => {
-      return next(); 
+      return next();
     })
     .catch(err => {
       const errorObj = {
@@ -90,8 +90,8 @@ scrumController.postStory = (req, res, next) => {
 
 // UPDATE TASK STATUS
 scrumController.updateTask = (req, res, next) => {
-  const { status, task_id} = req.body;
-  const values = [ status, task_id ];
+  const { status, task_id } = req.body;
+  const values = [status, task_id];
   const queryString = `UPDATE task SET status = $1 WHERE id = $2`;
 
   db.query(queryString, values)

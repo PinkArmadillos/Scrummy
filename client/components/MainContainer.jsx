@@ -10,14 +10,14 @@ export default function MainContainer() {
 
   // FETCH DATA EVERYTIME COUNTER CHANGES
   useEffect(() => {
-    fetch('/api/')
+    fetch('/')
       .then(data => data.json())
       .then(data => {
         setStories(data.stories);
         setTasks(data.tasks);
       })
       .catch(err => {
-        console.log({ err: 'Error fetching task and story data'});
+        console.log({ err: 'Error fetching task and story data' });
       })
   }, [fetchCounter]);
 
@@ -29,8 +29,8 @@ export default function MainContainer() {
   // RENDER MAINCONTAINER
   return (
     <div className="mainContainer">
-      <Forms fetchCounter={incrementCounter} storyList={stories}/>
-      <Scrumboard storyList={stories} taskList={tasks} fetchCounter={incrementCounter}/>
+      <Forms fetchCounter={incrementCounter} storyList={stories} />
+      <Scrumboard storyList={stories} taskList={tasks} fetchCounter={incrementCounter} />
     </div>
   )
 }

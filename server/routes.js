@@ -1,8 +1,9 @@
-const express = require('express'); 
+const express = require('express');
 
 const router = express.Router();
+const teamController = require('./teamController');
+const controller = require('./scrumController');
 
-const controller = require('./scrumController'); 
 // get tasks
 router.get('/', controller.getStories, controller.getTasks, (req, res) => {
   const result = {
@@ -10,6 +11,18 @@ router.get('/', controller.getStories, controller.getTasks, (req, res) => {
     tasks: res.locals.tasks
   };
   res.status(200).json(result);
+})
+
+//login your team
+router.post('/login', teamController.login, (req, res) => {
+  res.redirect('/scrummy');
+  // return res.status(200).end('Logged in');
+})
+
+//creating a new team
+router.post('/create', teamController.create, (req, res) => {
+  res.redirect('/scrummy');
+  // return res.status(200).end('Team added');
 })
 
 // create new task
