@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function Story({ story, fetchCounter }) {
+export default function Story({ story, getData }) {
 
   // MAKE DELTE REQUEST TO DELETE STORY
   function deleteStory(id) {
@@ -9,8 +9,12 @@ export default function Story({ story, fetchCounter }) {
       method: 'DELETE',
     })
       .then(() => {
+<<<<<<< HEAD
         console.log('back in deleteStory in Story.jsx');
         fetchCounter();
+=======
+        getData();
+>>>>>>> dev
       })
       .catch(err => {
         console.log({ err: 'Error deleting story' });
