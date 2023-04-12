@@ -1,5 +1,5 @@
 import React from 'react';
-
+import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import Story from './Story';
 import Task from './Task';
 
@@ -34,11 +34,15 @@ export default function Scrumboard({ storyList, taskList, getData }) {
 
 	// RENDER SCRUMBOARD
 	return (
-		<div className='scrumboard'>
+		<Droppable droppableId='scrumboard'>
+			{(provided) => (
+		<div className='scrumboard' {...provided.droppableProps} ref={provided.innerRef}>
 			<div id='backlog' className='column'>
 				<h3>Backlog</h3>
 				<hr />
+				<Draggable>
 				{backlogTasks}
+				</Draggable>
 			</div>
 			<div id='stories' className='column'>
 				<h3>Stories</h3>
@@ -66,5 +70,7 @@ export default function Scrumboard({ storyList, taskList, getData }) {
 				{doneTasks}
 			</div>
 		</div>
+		)}
+		</Droppable>
 	);
 }
