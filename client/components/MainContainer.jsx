@@ -1,15 +1,54 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, createContext } from 'react';
 import Scrumboard from './Scrumboard';
 import Forms from './Forms';
+
+export const dragContext = createContext();
 
 export default function MainContainer() {
 	const [stories, setStories] = useState([]);
 	const [tasks, setTasks] = useState([]);
+	const [dragid, setDragId] = useState(0);
 
-	// FETCH DATA EVERYTIME COUNTER CHANGES
+	function newDragStatus(newStatus) {
+		fetch('/api/task', {
+			method: 'PATCH',
+			body: JSON.stringify({
+				status: newStatus,
+				task_id: dragid,
+			}),
+			headers: {
+				'Content-type': 'application/json',
+			},
+		})
+			.then(() => {
+				getData();
+			})
+			.catch((err) => {
+				console.log({ err: 'Error updating task status' });
+			});
+	}
+
 	useEffect(() => {
 		getData();
 	}, []);
+
+	function handleOnDrag(e) {
+		console.log('target', e);
+		setDragId(e.target.id);
+	}
+
+	function handleDragOver(e) {
+		e.preventDefault();
+	}
+
+	function handleDrop(e) {
+		const id = !e.target.id ? e.currentTarget.id : e.target.id;
+		if (id === 'stories') {
+			return;
+		}
+		console.log(dragid);
+		newDragStatus(id);
+	}
 
 	function getData() {
 		fetch('/api/')
@@ -26,9 +65,18 @@ export default function MainContainer() {
 
 	// RENDER MAINCONTAINER
 	return (
-		<div className='mainContainer'>
-			<Forms getData={getData} storyList={stories} />
-			<Scrumboard storyList={stories} taskList={tasks} getData={getData} />
-		</div>
+		<dragContext.Provider
+			value={{
+				handleOnDrag,
+				handleDrop,
+				handleDragOver,
+				getData,
+				newDragStatus,
+			}}>
+			<div className='mainContainer'>
+				<Forms storyList={stories} />
+				<Scrumboard storyList={stories} taskList={tasks} />
+			</div>
+		</dragContext.Provider>
 	);
 }

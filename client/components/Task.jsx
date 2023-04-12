@@ -1,7 +1,12 @@
 import React from 'react';
+import { useContext } from 'react';
+import { dragContext } from './MainContainer';
 
-export default function Task({ task, getData }) {
+export default function Task({ task }) {
 	// MAKE PATCH REQUEST TO UPDATE TASK STATUS
+
+	const { handleOnDrag, getData } = useContext(dragContext);
+
 	function changeStatus(newStatus) {
 		fetch('/api/task', {
 			method: 'PATCH',
@@ -37,8 +42,13 @@ export default function Task({ task, getData }) {
 	const classes = `task ${task.color}`;
 
 	// RENDER TASK COMPONENT
+	//
 	return (
-		<div className={classes}>
+		<div
+			draggable
+			onDragStart={(e) => handleOnDrag(e)}
+			id={task.id}
+			className={classes}>
 			<p>
 				<span class='task-label'>Task</span>
 				{task.description}
