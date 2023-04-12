@@ -4,10 +4,12 @@ export default function Story({ story, getData }) {
 
   // MAKE DELTE REQUEST TO DELETE STORY
   function deleteStory(id) {
+    console.log('sending deleteStory from Story.jsx');
     fetch(`/api/story/${id}`, {
       method: 'DELETE',
     })
       .then(() => {
+
         getData();
       })
       .catch(err => {

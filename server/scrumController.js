@@ -5,6 +5,7 @@ const scrumController = {};
 
 // GET STORIES
 scrumController.getStories = (req, res, next) => {
+
 	const queryStr = 'SELECT * FROM story';
 
 	db.query(queryStr)
@@ -24,6 +25,7 @@ scrumController.getStories = (req, res, next) => {
 
 // GET TASKS
 scrumController.getTasks = (req, res, next) => {
+
 	const queryStr = 'SELECT * FROM task';
 
 	db.query(queryStr)
@@ -39,6 +41,7 @@ scrumController.getTasks = (req, res, next) => {
 			};
 			return next(errorObj);
 		});
+
 };
 
 // ADD TASK
