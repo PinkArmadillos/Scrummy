@@ -37,4 +37,16 @@ router.delete('/story/:id', controller.deleteStory, (req, res) => {
   return res.status(200).end('Story Deleted');
 })
 
+//user login
+router.post('/login', controller.verifyUser, controller.getTeams, (req, res) => {
+	console.log('login working');
+	res.status(200).json(res.locals.user);
+})
+
+//user signup
+// router.post('/signup', controller.createUser, (req, res) => {
+//   console.log('signup working');
+//   res.status(200).json(res.locals.user);
+// })
+
 module.exports = router;

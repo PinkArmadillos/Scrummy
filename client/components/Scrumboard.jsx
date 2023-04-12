@@ -34,15 +34,12 @@ export default function Scrumboard({ storyList, taskList, getData }) {
 
 	// RENDER SCRUMBOARD
 	return (
-		<Droppable droppableId='scrumboard'>
-			{(provided) => (
-		<div className='scrumboard' {...provided.droppableProps} ref={provided.innerRef}>
+
+		<div className='scrumboard'>
 			<div id='backlog' className='column'>
 				<h3>Backlog</h3>
 				<hr />
-				<Draggable>
 				{backlogTasks}
-				</Draggable>
 			</div>
 			<div id='stories' className='column'>
 				<h3>Stories</h3>
@@ -70,7 +67,6 @@ export default function Scrumboard({ storyList, taskList, getData }) {
 				{doneTasks}
 			</div>
 		</div>
-		)}
-		</Droppable>
+
 	);
 }

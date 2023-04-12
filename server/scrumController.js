@@ -143,4 +143,113 @@ scrumController.deleteStory = (req, res, next) => {
 		});
 };
 
+// VERIFY USER LOGIN
+scrumController.verifyUser = (req, res, next) => {
+	const { username, password } = req.body;
+	const values = [username]
+	const queryString = `
+	SELECT * FROM "public"."user"
+	WHERE username = $1`;
+
+	db.query(queryString, values)
+	.then((data) => {
+		console.log('data in verifyUser: ', data)
+		console.log(data.rows[0].username)
+		const dbUser = data.rows[0].username
+		const dbPass = data.rows[0].password
+		if (!dbUser) {
+			const errorObj = {
+				log: 'User does not exists',
+				status: 501,
+				message: 'Username and/or Password is incorrect and/or does not exist',
+			};
+			return next(errorObj);
+		}
+		if (dbPass !== password) {
+			const errorObj = {
+				log: 'Password is incorrect but user exists',
+				status: 501,
+				message: 'Username and/or Password is incorrect and/or does not exist',
+			};
+			return next(errorObj);
+		}
+		if (dbPass === password) {
+			console.log(`Successfully found ${dbUser} in the database through verifyUser`)
+			const userObj = {
+				exists: true,
+				user_id: data.rows[0].id,
+				username: dbUser
+			}
+			res.locals.user = userObj;
+			return next();
+		}
+})
+	.catch((err) => {
+		console.log('we in VerifyUser')
+
+		const errorObj = {
+			log: `scrumController.verifyUser middleware error ${err.message}`,
+			status: 501,
+			message: 'Login failed',
+		};
+		return next(errorObj);
+	});
+}
+
+scrumController.getTeams = (req, res, next) => {
+	const { user } = res.locals;
+	const values = [user.user_id]
+	const queryString = `
+	SELECT t.id, t.team_name
+	FROM "public"."userTeam" ut INNER JOIN "public"."team" t
+	ON ut.user_id = $1 AND ut.team_id = t.id`
+
+	db.query(queryString, values)
+		.then((data) => {
+
+		user.userTeams = data.rows
+
+		console.log('data in getTeams', user.userTeams);
+		return next();
+	})
+	.catch((err) => {
+		console.log('we in getTeams')
+		return next(err);
+	})
+}
+
+// scrumController.createUser = (req, res, next) => {
+// 	const { username, password } = req.body;
+// 	const values = [username]
+// 	const queryString = `
+// 	SELECT * FROM "public"."user"
+// 	WHERE username = $1`
+
+// 	db.query(queryString, values)
+// 	.then((data) => {
+// 		console.log('create user data', data.rows)
+
+// 		// const dbUser = data.rows[0].username
+// 		// const dbPass = data.rows[0].password
+
+// 		// console.log('dbUser: ', dbUser, 'dbPass: ', dbPass)
+// 		if(data.rows != []) {
+// 			console.log('user is already in the data base')
+// 			next(err);
+// 		}
+// 		if (data.rows === []) {
+// 			console.log('username is good to go')
+// 		const user = {
+// 			username: dbUser,
+// 			password: dbPass
+// 		}
+// 		res.locals.user = user;
+// 		next();
+// 	}
+// 	}).catch((err) => {
+// 		next(err);
+// 	})
+// 	next();
+// }
+
 module.exports = scrumController;
