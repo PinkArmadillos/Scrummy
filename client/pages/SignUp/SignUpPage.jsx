@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { useNavigate, Form } from 'react-router-dom';
+import { useNavigate, Form, redirect } from 'react-router-dom';
 // import { userContext } from '../context';
 
 const SignUpPage = () => {
@@ -17,7 +17,7 @@ const SignUpPage = () => {
           <input type="newPassword" name="newPassword" required />
         </label>
         <br></br>
-          <button type="submit" onClick="">Submit</button>
+          <button>Submit</button>
       </Form>
 
     </div>
@@ -33,8 +33,7 @@ export const signupAction = async ({ request }) => {
     passnewPasswordword: data.get('newPassword')
   }
   
-  //need to send info to DB via fetch request
-
+  //need to store username/password to DB, then
   return redirect('/UserHomePage')
  }
 

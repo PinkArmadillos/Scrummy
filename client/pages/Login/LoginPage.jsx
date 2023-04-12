@@ -19,7 +19,7 @@ const LoginPage = () => {
           <input type="password" name="password" required />
         </label>
         <br></br>
-        <button type="submit" onClick="">Login</button>
+        <button>Login</button>
       </Form>
       <div id="noAccount">
         <br></br>
@@ -38,8 +38,7 @@ export const loginAction = async ({ request }) => {
     password: data.get('password')
   }
   
-  //need to send info to DB via fetch request
-
+  //need to pull data from DB and if authentication passed
   return redirect('/UserHomePage')
  }
 
