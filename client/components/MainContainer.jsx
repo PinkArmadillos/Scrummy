@@ -1,4 +1,4 @@
-import React, { useState, useEffect, createContext, useContext } from 'react';
+import React, { useState, useEffect, createContext } from 'react';
 import Scrumboard from './Scrumboard';
 import Forms from './Forms';
 
@@ -45,7 +45,7 @@ export default function MainContainer() {
 		const id = !e.target.id ? e.currentTarget.id : e.target.id;
 		console.log(dragid);
 		newDragStatus(id);
-  }
+	}
 
 	function getData() {
 		fetch('/api/')
