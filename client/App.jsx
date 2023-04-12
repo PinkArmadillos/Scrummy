@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { createBrowserRouter, createRoutesFromElements, RouterProvider, Route } from "react-router-dom";
 import MainContainer from './components/MainContainer';
 import RootLayout from './layouts/RootLayout';
-import LoginPage from './pages/Login/LoginPage';
-import SignUpPage from './pages/SignUp/SignUpPage';
+import LoginPage, { loginAction } from './pages/Login/LoginPage';
+import SignUpPage, { signupAction } from './pages/SignUp/SignUpPage';
 import UserHomePage from './pages/UserHome/UserHomePage';
 import ScrumBoard from './pages/ScrumBoard/ScrumBoardPage';
 
@@ -11,19 +11,20 @@ import ScrumBoard from './pages/ScrumBoard/ScrumBoardPage';
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path='/' element={<RootLayout/>}>
-      <Route path='/' element={<LoginPage key='LoginPage'/>} />
+      <Route
+        path='/'
+        element={<LoginPage key='LoginPage' />}
+        action={loginAction} />
       <Route
         path='/SignupPage'
         element={<SignUpPage key='SignupPage' />}
-      />
+        action={signupAction} />
       <Route
         path='/UserHomePage'
-        element={<UserHomePage key='UserHomePage' />}
-      />
+        element={<UserHomePage key='UserHomePage' />} />
       <Route
         path='/ScrumBoardPage'
-        element={<ScrumBoard key='ScrumBoardPage' />}
-      />
+        element={<ScrumBoard key='ScrumBoardPage' />} />
     </Route>
   )
 )
