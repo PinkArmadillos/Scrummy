@@ -9,12 +9,8 @@ export default function Story({ story, getData }) {
       method: 'DELETE',
     })
       .then(() => {
-<<<<<<< HEAD
-        console.log('back in deleteStory in Story.jsx');
-        fetchCounter();
-=======
+
         getData();
->>>>>>> dev
       })
       .catch(err => {
         console.log({ err: 'Error deleting story' });

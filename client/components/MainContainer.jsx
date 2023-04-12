@@ -1,31 +1,71 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, createContext, useContext } from 'react';
 import Scrumboard from './Scrumboard';
 import Forms from './Forms';
+
+export const onDrag = createContext(null);
+export const handleonDragOver= createContext(null);
+export const handleonDrop = createContext(null);
+
+
+
 
 export default function MainContainer() {
 	const [stories, setStories] = useState([]);
 	const [tasks, setTasks] = useState([]);
+  const [dragid,setDragId] = useState(0);
 
-<<<<<<< HEAD
-  // FETCH DATA EVERYTIME COUNTER CHANGES
-  useEffect(() => {
-    console.log('fetchCounter has been called and things are updating');
-    fetch('/api/')
-      .then(data => data.json())
-      .then(data => {
-        setStories(data.stories);
-        setTasks(data.tasks);
-      })
-      .catch(err => {
-        console.log({ err: 'Error fetching task and story data'});
-      })
-  }, [fetchCounter]);
-=======
+
+
+	function newDragStatus(newStatus) {
+		fetch('/api/task', {
+			method: 'PATCH',
+			body: JSON.stringify({
+				status: newStatus,
+				task_id: dragid,
+			}),
+      headers:{
+        'Content-type': 'application/json',
+      }
+    })
+    .then(() => {
+      getData();
+    })
+    .catch((err) => {
+      console.log({err: 'Error updating task status'});
+    })
+  }
+
+
+
+
+  
+
+
 	// FETCH DATA EVERYTIME COUNTER CHANGES
 	useEffect(() => {
 		getData();
 	}, []);
->>>>>>> dev
+
+
+
+  async function handleOnDrag(e) {
+    console.log("target", e.target)
+    await setDragId(e.target.id)
+  }
+
+  function handleDragOver(e){
+    e.preventDefault();
+  }
+
+
+
+   function handleDrop(e){
+    console.log('class',e.target)
+    const {id} = e.target
+
+    newDragStatus(id);
+  }
+
 
 	function getData() {
 		fetch('/api/')
@@ -41,9 +81,16 @@ export default function MainContainer() {
 
 	// RENDER MAINCONTAINER
 	return (
-		<div className='mainContainer'>
-			<Forms getData={getData} storyList={stories} />
-			<Scrumboard storyList={stories} taskList={tasks} getData={getData} />
-		</div>
+    <handleonDrop.Provider value={handleDrop}>
+    <handleonDragOver.Provider value={handleDragOver} >
+    <onDrag.Provider value = {handleOnDrag}>
+      <div className='mainContainer'>
+        <Forms getData={getData} storyList={stories} />
+        <Scrumboard storyList={stories} taskList={tasks} getData={getData} />
+      </div>
+    </onDrag.Provider>
+    </handleonDragOver.Provider>
+    </handleonDrop.Provider>
+
 	);
 }

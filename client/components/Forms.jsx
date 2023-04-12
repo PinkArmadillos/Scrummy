@@ -36,61 +36,6 @@ export default function Forms({ getData, storyList }) {
 			});
 	}
 
-<<<<<<< HEAD
-  function addTask(event) {
-    event.preventDefault();
-    console.log('sending POST addTask from Forms.jsx');
-    fetch('/api/task', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        taskDesc,
-        taskOwner,
-        taskDiff,
-        taskColor
-      }),
-    })
-    .then(() => {
-      console.log('we are back in addTask in Form.jsx')
-      setTaskDesc('');
-      setTaskOwner('');
-      setTaskDiff('');
-      setTaskColor('');
-      document.querySelector('#add-task').reset();
-      fetchCounter();
-    })
-    .catch(err => {
-      console.log({ err: 'Error adding task' });
-    });
-  }
-
-  function addStory(event) {
-    event.preventDefault();
-    console.log('sending POST addStory from Forms.jsx');
-    fetch('/api/story', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        storyDesc,
-        storyColor
-      }),
-    })
-    .then(()=> {
-      console.log('we are back in addStory in Form.jsx')
-      setStoryColor('');
-      setStoryDesc('');
-      document.querySelector('#add-story').reset();
-      fetchCounter();
-    })
-    .catch(err => {
-      console.log({ err: 'Error adding story' });
-    });
-  }
-=======
 	function addStory(event) {
 		event.preventDefault();
 		fetch('/api/story', {
@@ -126,7 +71,6 @@ export default function Forms({ getData, storyList }) {
 			</option>
 		);
 	}
->>>>>>> dev
 
 	return (
 		<div className='forms'>

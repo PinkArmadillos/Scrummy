@@ -1,5 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Indie+Flower&family=Pacifico&display=swap');
 
+.drag{
+  height:300px;
+}
 
 * {
   margin: 0;

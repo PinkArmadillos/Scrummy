@@ -12,7 +12,7 @@ scrumController.getStories = (req, res, next) => {
   db.query(queryStr)
     .then(data => {
       res.locals.stories = data.rows;
-      console.log('this is the data coming from scrumController.getStories: ', data.rows);
+      //console.log('this is the data coming from scrumController.getStories: ', data.rows);
       return next();
     })
     .catch(err => {
@@ -29,13 +29,13 @@ scrumController.getStories = (req, res, next) => {
 
 // GET TASKS
 scrumController.getTasks = (req, res, next) => {
-  console.log('we are in scrumController.getTasks');
+  //console.log('we are in scrumController.getTasks');
   const queryStr = 'SELECT * FROM task';
 
   db.query(queryStr)
     .then(data => {
       res.locals.tasks = data.rows;
-      console.log('this is the data coming from scrumController.getTasks: ', data.rows);
+      //console.log('this is the data coming from scrumController.getTasks: ', data.rows);
       return next();
     })
     .catch(err => {
@@ -59,12 +59,12 @@ scrumController.postTask = (req, res, next) => {
   VALUES ($1, $2, $3, $4)`;
 
   console.log('we are in scrumController.postTask');
-  console.log('in the req.body we have: ', req.body);
-  console.log('which was converted to values: ', values);
+  //console.log('in the req.body we have: ', req.body);
+  //console.log('which was converted to values: ', values);
 
   db.query(queryString, values)
     .then(data => {
-      console.log('Have returned from the scrumController.postTask query');
+      //console.log('Have returned from the scrumController.postTask query');
       return next();
     })
     .catch(err => {
@@ -85,9 +85,9 @@ scrumController.postStory = (req, res, next) => {
   const values = [ storyDesc, storyColor ]; 
   const storyString = `INSERT INTO story (description, color) VALUES ($1, $2)`;
 
-  console.log('we are in scrumController.postStory');
-  console.log('in the req.body we have: ', req.body);
-  console.log('which was converted to values: ', values);
+  //console.log('we are in scrumController.postStory');
+  //console.log('in the req.body we have: ', req.body);
+  //console.log('which was converted to values: ', values);
 
   db.query(storyString, values)
     .then(data => {
@@ -112,13 +112,13 @@ scrumController.updateTask = (req, res, next) => {
   const values = [ status, task_id ];
   const queryString = `UPDATE task SET status = $1 WHERE id = $2`;
 
-  console.log('we are in scrumController.updateTask');
-  console.log('in the req.body we have: ', req.body);
-  console.log('which was converted to values: ', values);
+  //console.log('we are in scrumController.updateTask');
+  //console.log('in the req.body we have: ', req.body);
+  //console.log('which was converted to values: ', values);
 
   db.query(queryString, values)
     .then(data => {
-      console.log('Have returned from the scrumController.updateTask query');
+      //console.log('Have returned from the scrumController.updateTask query');
       return next();
     })
     .catch(err => {
@@ -139,13 +139,13 @@ scrumController.deleteTask = (req, res, next) => {
   const values = [id];
   const queryString = `DELETE FROM task WHERE id = $1`;
 
-  console.log('we are in scrumController.deleteTask');
-  console.log('in the req.params.id we have: ', req.params.id);
-  console.log('which was converted to values: ', values);
+  //console.log('we are in scrumController.deleteTask');
+  //console.log('in the req.params.id we have: ', req.params.id);
+  //console.log('which was converted to values: ', values);
 
   db.query(queryString, values)
     .then(data => {
-      console.log('Have returned from the scrumController.deleteTask query');
+      //console.log('Have returned from the scrumController.deleteTask query');
       return next();
     })
     .catch(err => {
@@ -166,13 +166,13 @@ scrumController.deleteStory = (req, res, next) => {
   const values = [id];
   const queryString = `DELETE FROM story WHERE id = $1`;
 
-  console.log('we are in scrumController.deleteStories');
-  console.log('in the req.params.id we have: ', req.params.id);
-  console.log('which was converted to values: ', values);
+  //console.log('we are in scrumController.deleteStories');
+  //console.log('in the req.params.id we have: ', req.params.id);
+  //console.log('which was converted to values: ', values);
 
   db.query(queryString, values)
     .then(data => {
-      console.log('Have returned from the scrumController.deleteStory query');
+      //console.log('Have returned from the scrumController.deleteStory query');
       return next();
     })
     .catch(err => {
