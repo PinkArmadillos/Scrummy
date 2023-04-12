@@ -38,8 +38,8 @@ export const loginAction = async ({ request }) => {
   const loginInfo = await request.formData()
   
   //need to pull data from DB and if authentication passed
-  try {
-    fetch('/api/login', {
+  
+    const res = await fetch('/api/login', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -47,11 +47,13 @@ export const loginAction = async ({ request }) => {
         password: loginInfo.get('password')
       })
     })
+    console.log(res);
+    if(res.status === 200){
 
     console.log('in function body after fetch')
-    console.log(res, typeof res);
-    const response = await JSON.parse(res);
-    console.log('after ')
+    
+    const response = await res.json();
+    console.log('after json parse')
     console.log("info we received from backend", response);
     
     if (response.status === 'valid') {
@@ -60,18 +62,15 @@ export const loginAction = async ({ request }) => {
       return redirect('/UserHomePage');
     }
 
-    if (response.status === 'IncorrectPassword') {
-      return { error: 'Password is incorrect' };
+    if (response.status === 'IncorrectPassword' || response.status === 'UsernameSOMETYHJERSTGBSDFBSTBSBSRB') {
+      return { error: 'Username password combination was not valid' };
     }
 
     return { error: `The status "${response.status}" sent in the response doesn't match the valid cases.` };
         
-  } catch (err) {
-    console.log('In catch statement')
-    return `You got an error when using login action: ${err.message}`;
-  }
+    } 
   
-  return 'fail';
+  return { error: 'The server responded with a status other than 200'};
  }
 
 export default LoginPage;
