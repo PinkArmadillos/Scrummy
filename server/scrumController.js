@@ -156,21 +156,25 @@ scrumController.verifyUser = (req, res, next) => {
 
 	db.query(queryString, values)
 	.then((data) => {
-		console.log('data in verifyUser: ', data)
-		console.log(data.rows[0].username)
-		const dbUser = data.rows[0].username
-		const dbPass = data.rows[0].password
+		// console.log('data in verifyUser: ', data)
+		// console.log(data.rows[0].username)
+
 		
-		if (!dbUser) {
+		console.log('data.rows[0]: ', data.rows[0])
+		if (data.rows[0] === undefined) {
+
 			res.locals.status = 'UserNotFound';
-			next();
+			return next();
 		}
+		const dbPass = data.rows[0].password
 		if (dbPass !== password) {
 
 			res.locals.status = 'IncorrectPassword';
-			next();
+			return next();
 		}
 		if (dbPass === password) {
+			const dbUser = data.rows[0].username
+			
 			console.log(`Successfully found ${dbUser} in the database through verifyUser`)
 			const userObj = {
 				exists: true,
@@ -183,7 +187,7 @@ scrumController.verifyUser = (req, res, next) => {
 		}
 })
 	.catch((err) => {
-		console.log('we in VerifyUser')
+		console.log('we in VerifyUser catch')
 
 		const errorObj = {
 			log: `scrumController.verifyUser middleware error ${err.message}`,
@@ -194,7 +198,12 @@ scrumController.verifyUser = (req, res, next) => {
 	});
 }
 
+
+// Controller to get Teams
 scrumController.getTeams = (req, res, next) => {
+	if (res.locals.user === undefined) {
+		return next();
+	}
 	const { user } = res.locals;
 	const values = [user.user_id]
 	const queryString = `
@@ -220,6 +229,7 @@ scrumController.getTeams = (req, res, next) => {
 	});
 }
 
+//Controller to check username
 scrumController.checkUsername = (req, res, next) => {
 	const { username, password } = req.body;
 	const values = [username]
@@ -256,6 +266,7 @@ scrumController.checkUsername = (req, res, next) => {
 	});
 }
 
+// controller to create user
 scrumController.createUser = (req, res, next) => {
 	console.log('Inside create user')
 	const { newUser } = res.locals;
