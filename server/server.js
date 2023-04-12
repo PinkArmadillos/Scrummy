@@ -19,6 +19,7 @@ app.use('/api', router);
  * 404 handler
  */
 app.use((req, res) => {
+  console.log('We are in the catch all error handler');
   res.status(404).send('Not Found');
 });
 

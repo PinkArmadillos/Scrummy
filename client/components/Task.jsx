@@ -1,7 +1,13 @@
 import React from 'react';
+import {useContext} from 'react';
+import {onDrag} from './MainContainer';
+
 
 export default function Task({ task, getData }) {
 	// MAKE PATCH REQUEST TO UPDATE TASK STATUS
+
+	const handleOnDrag = useContext(onDrag);
+
 	function changeStatus(newStatus) {
 		fetch('/api/task', {
 			method: 'PATCH',
@@ -21,6 +27,7 @@ export default function Task({ task, getData }) {
 			});
 	}
 
+
 	// MAKE DELTE REQUEST TO DELETE TASK
 	function deleteTask(id) {
 		fetch(`/api/task/${id}`, {
@@ -37,8 +44,9 @@ export default function Task({ task, getData }) {
 	const classes = `task ${task.color}`;
 
 	// RENDER TASK COMPONENT
+	//
 	return (
-		<div className={classes}>
+		<div draggable onDragStart= {(e) => handleOnDrag(e)} id={task.id} className={classes}>
 			<p>
 				<span class='task-label'>Task</span>
 				{task.description}
