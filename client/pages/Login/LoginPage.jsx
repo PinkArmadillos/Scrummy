@@ -37,8 +37,28 @@ export const loginAction = async ({ request }) => {
     username: data.get('username'),
     password: data.get('password')
   }
+  console.log('submission', submission.username)
+//need to pull data from DB and if authentication passed
+  fetch('/api/login', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+        username: submission.username,
+        password: submission.password,
+    }),
+    }).then((res) => {
+        return res.json();
+    }).then((data) => {
+
+      console.log("data: ", data)
+
+        
+    }).catch(
+        console.log('Error occurred, try again')
+    );
   
-  //need to pull data from DB and if authentication passed
   return redirect('/UserHomePage')
  }
 
