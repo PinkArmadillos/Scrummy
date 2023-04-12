@@ -50,6 +50,7 @@ const handleDragOver = useContext(handleonDragOver);
 
 	// RENDER SCRUMBOARD
 	return (
+
 		<div className='scrumboard'>
 			<div id='backlog' className='column' onDrop= {handleDrop} onDragOver={handleDragOver} >
 				<h3>Backlog</h3>
@@ -82,5 +83,6 @@ const handleDragOver = useContext(handleonDragOver);
 				{doneTasks}
 			</div>
 		</div>
+
 	);
 }
