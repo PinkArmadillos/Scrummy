@@ -57,7 +57,7 @@ const App = () => {
     {/* //   <tripContext.Provider value={currentTripValue}> */}
         <RouterProvider router={router} />
     {/* //   </tripContext.Provider> */}
-    // </userContext.Provider>
+     </userContext.Provider>
   )
 }
 
