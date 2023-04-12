@@ -12,7 +12,7 @@
 
 body {
   font-family: sans-serif;
-  background-image: linear-gradient(rgb(255, 0, 170, 1), rgba(255, 0, 170, 0));
+  background-image: linear-gradient(rgb(181, 119, 160), rgba(255, 0, 170, 0));
   color: rgb(0, 0, 0);
   height: 100vh;
 }
@@ -34,7 +34,7 @@ header {
 h1 {
   font-family: 'Indie Flower', cursive;
   font-size: 3em;
-  color: rgb(255, 0, 170);
+  color: rgb(251, 248, 250);
 }
 
 .mainContainer {
@@ -72,6 +72,7 @@ input, textarea, select {
   background-color: rgb(46, 46, 46);
   box-shadow: 2px 2px 10px rgb(0, 0, 0);
   padding: 20px;
+  width: 75%;
 }
 
 .column {
@@ -133,4 +134,13 @@ hr {
 /* Vanilla */
 .r232g225b155 {
   background-color: rgb(232, 225, 155);
+}
+
+.nav-link{
+  color: dodgerblue;
+  margin: 15px;
+}
+
+#noAccount{
+  float: left
 }

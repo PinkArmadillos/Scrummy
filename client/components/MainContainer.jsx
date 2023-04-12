@@ -49,7 +49,7 @@ export default function MainContainer() {
 
 
   async function handleOnDrag(e) {
-    console.log("target", e.target)
+    console.log("target", e)
     await setDragId(e.target.id)
   }
 
@@ -59,9 +59,9 @@ export default function MainContainer() {
 
 
 
-   function handleDrop(e){
-    console.log('class',e.target)
-    const {id} = e.target
+  function handleDrop(e) {
+    
+    const id = !e.target.id ? e.currentTarget.id : e.target.id
 
     newDragStatus(id);
   }
@@ -71,6 +71,7 @@ export default function MainContainer() {
 		fetch('/api/')
 			.then((data) => data.json())
 			.then((data) => {
+				console.log(data, 'this is the response from server');
 				setStories(data.stories);
 				setTasks(data.tasks);
 			})
