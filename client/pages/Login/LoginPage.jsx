@@ -3,8 +3,13 @@ import { useNavigate, Form, redirect, Link, useActionData } from 'react-router-d
 import { userContext } from '../../context';
 
 const LoginPage = () => {
-
+  const { user, setUser } = useContext(userContext)
   const data = useActionData();
+
+  if (data && data.user !== undefined) {
+    setUser(data.user)
+    return redirect('/UserHomePage');
+  }
 
   return (
     <div>
@@ -34,7 +39,7 @@ const LoginPage = () => {
 };
 
 export const loginAction = async ({ request }) => {
-  const { user, setUser } = userContext;
+  // const { user, setUser } = useContext(userContext)
   const loginInfo = await request.formData()
   
   //need to pull data from DB and if authentication passed
@@ -55,11 +60,11 @@ export const loginAction = async ({ request }) => {
     const response = await res.json();
     console.log('after json parse')
     console.log("info we received from backend", response);
-    
+    console.log(response.user)
     if (response.status === 'valid') {
       console.log('Login was successful!');
-      await setUser(response.user); //doing this to make this response.user info accessible from userHomePage
-      return redirect('/UserHomePage');
+      // setUser(response.user); //doing this to make this response.user info accessible from userHomePage
+      return {user: response.user};
     }
 
     if (response.status === 'IncorrectPassword' || response.status === 'UserNotFound') {

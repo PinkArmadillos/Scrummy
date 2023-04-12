@@ -29,7 +29,7 @@ const SignUpPage = () => {
 };
 
 export const signupAction = async ({ request }) => {
-  const { user, setUser } = userContext;
+  const { user, setUser } = useContext(userContext)
   const submitData = await request.formData();
 
   //need to store username/password to DB, then
@@ -51,10 +51,10 @@ export const signupAction = async ({ request }) => {
   const response = await res.json();
   console.log('after json parse ')
   console.log("info we received from backend", response);
-
+    console.log(response.user)
   if (response.status === 'valid') {
     console.log('Signup was successful!');
-    await setUser(response.user); //doing this to make this response.user info accessible from userHomePage
+    setUser(response.user); //doing this to make this response.user info accessible from userHomePage
     return redirect('/UserHomePage');
   }
 
