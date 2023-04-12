@@ -62,7 +62,7 @@ export const loginAction = async ({ request }) => {
       return redirect('/UserHomePage');
     }
 
-    if (response.status === 'IncorrectPassword' || response.status === 'UsernameSOMETYHJERSTGBSDFBSTBSBSRB') {
+    if (response.status === 'IncorrectPassword' || response.status === 'UserNotFound') {
       return { error: 'Username password combination was not valid' };
     }
 
