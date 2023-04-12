@@ -43,6 +43,9 @@ export default function MainContainer() {
 
 	function handleDrop(e) {
 		const id = !e.target.id ? e.currentTarget.id : e.target.id;
+		if (id === 'stories') {
+			return;
+		}
 		console.log(dragid);
 		newDragStatus(id);
 	}
