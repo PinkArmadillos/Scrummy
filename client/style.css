@@ -131,3 +131,8 @@ hr {
 .r232g225b155 {
   background-color: rgb(232, 225, 155);
 }
+
+.nav-link{
+  color: dodgerblue;
+  margin: 15px;
+}
