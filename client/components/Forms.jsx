@@ -1,13 +1,15 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import React from 'react';
+import { dragContext } from './MainContainer';
 
-export default function Forms({ getData, storyList }) {
+export default function Forms({ storyList }) {
 	const [taskDesc, setTaskDesc] = useState('');
 	const [taskOwner, setTaskOwner] = useState('');
 	const [taskDiff, setTaskDiff] = useState('');
 	const [taskColor, setTaskColor] = useState('');
 	const [storyDesc, setStoryDesc] = useState('');
 	const [storyColor, setStoryColor] = useState('');
+	const { getData } = useContext(dragContext);
 
 	function addTask(event) {
 		event.preventDefault();
@@ -20,8 +22,8 @@ export default function Forms({ getData, storyList }) {
 				taskDesc,
 				taskOwner,
 				taskDiff,
-        taskColor,
-        status: 'to-do'
+				taskColor,
+				status: 'to-do',
 			}),
 		})
 			.then(() => {
