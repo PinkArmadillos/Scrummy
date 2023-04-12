@@ -243,6 +243,7 @@ scrumController.checkUsername = (req, res, next) => {
 			}
 			console.log(user)
 			res.locals.newUser = user;
+			res.locals.status = 'valid';
 			return next();
 		}
 	}).catch((err) => {
