@@ -44,6 +44,7 @@ export default function Scrumboard({ storyList, taskList }) {
 
 	// RENDER SCRUMBOARD
 	return (
+
 		<div className='scrumboard'>
 			<div
 				id='backlog'
@@ -100,5 +101,6 @@ export default function Scrumboard({ storyList, taskList }) {
 				{doneTasks}
 			</div>
 		</div>
+
 	);
 }

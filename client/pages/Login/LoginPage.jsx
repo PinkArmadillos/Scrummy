@@ -70,6 +70,7 @@ export const loginAction = async ({ request }) => {
     console.log('In catch statement')
     return `You got an error when using login action: ${err.message}`;
   }
+  
   return 'fail';
  }
 
