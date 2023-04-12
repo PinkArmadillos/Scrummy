@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { createBrowserRouter, createRoutesFromElements, RouterProvider, Route } from "react-router-dom";
-import MainContainer from './components/MainContainer';
 import RootLayout from './layouts/RootLayout';
 import LoginPage, { loginAction } from './pages/Login/LoginPage';
 import SignUpPage, { signupAction } from './pages/SignUp/SignUpPage';
@@ -29,22 +28,6 @@ const router = createBrowserRouter(
     </Route>
   )
 )
-
-/* Old app structure
-function App2() {
-
-  return (
-    <>
-      <header>
-        <h1>SCRUMMY</h1>
-      </header>
-
-        <MainContainer />
-
-    </>
-  );
-}
-*/
 
 const App = () => {
 
