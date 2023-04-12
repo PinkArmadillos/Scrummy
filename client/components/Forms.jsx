@@ -20,7 +20,8 @@ export default function Forms({ getData, storyList }) {
 				taskDesc,
 				taskOwner,
 				taskDiff,
-				taskColor,
+        taskColor,
+        status: 'to-do'
 			}),
 		})
 			.then(() => {

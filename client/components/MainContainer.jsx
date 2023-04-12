@@ -15,6 +15,7 @@ export default function MainContainer() {
 		fetch('/api/')
 			.then((data) => data.json())
 			.then((data) => {
+				console.log(data, 'this is the response from server');
 				setStories(data.stories);
 				setTasks(data.tasks);
 			})
