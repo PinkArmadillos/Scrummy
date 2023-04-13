@@ -238,7 +238,8 @@ scrumController.checkUsername = (req, res, next) => {
 	WHERE username = $1`
 
 	db.query(queryString, values)
-	.then((data) => {
+    .then((data) => {
+    console.log('in query')
 		if (data.rows[0] !== undefined) {
 			res.locals.status = 'UserNameExists';
 			next();
@@ -268,18 +269,25 @@ scrumController.checkUsername = (req, res, next) => {
 
 // controller to create user
 scrumController.createUser = (req, res, next) => {
-	console.log('Inside create user')
+  console.log('Inside create user')
+  if (res.locals.status !== 'valid') {
+    console.log('username matched, not actually creating new user')
+		return next();
+	}
 	const { newUser } = res.locals;
 	const values = [newUser.username, newUser.password];
 	console.log('values: ', values)
 	const queryString = 
 	`INSERT INTO "public"."user" (username, password)
-	VALUES ($1, $2)`
+	VALUES ($1, $2)
+  RETURNING username, id`
 	console.log("queryString: ", queryString)
 	db.query(queryString, values)
 	.then((data) => {
 		console.log(data)
-		console.log('created user')
+    console.log('created user')
+    res.locals.user = data.rows[0];
+    delete res.locals.newUser;
 		return next();
 	}).catch((err) => {
 		console.log('in catch')

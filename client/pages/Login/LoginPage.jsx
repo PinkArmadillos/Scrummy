@@ -1,10 +1,19 @@
-import React, { useState, useContext } from 'react';
-import { useNavigate, Form, redirect, Link, useActionData } from 'react-router-dom';
+import React, { useContext, useEffect } from 'react';
+import { useNavigate, Form, Link, useActionData } from 'react-router-dom';
 import { userContext } from '../../context';
 
 const LoginPage = () => {
-
+  const navigate = useNavigate();
+  const { user, setUser } = useContext(userContext)
   const data = useActionData();
+
+  useEffect(() => {
+    if (data && data.user !== undefined) {
+      console.log('in setter land')
+      setUser(data.user)
+      return navigate('/UserHomePage');
+    }
+  }, [data])
 
   return (
     <div>
@@ -34,19 +43,18 @@ const LoginPage = () => {
 };
 
 export const loginAction = async ({ request }) => {
-  const { user, setUser } = userContext;
   const loginInfo = await request.formData()
   
   //need to pull data from DB and if authentication passed
   
-    const res = await fetch('/api/login', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        username: loginInfo.get('username'),
-        password: loginInfo.get('password')
-      })
+  const res = await fetch('/api/login', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      username: loginInfo.get('username'),
+      password: loginInfo.get('password')
     })
+  });
     console.log(res);
     if(res.status === 200){
 
@@ -55,11 +63,10 @@ export const loginAction = async ({ request }) => {
     const response = await res.json();
     console.log('after json parse')
     console.log("info we received from backend", response);
-    
+    console.log(response.user)
     if (response.status === 'valid') {
       console.log('Login was successful!');
-      await setUser(response.user); //doing this to make this response.user info accessible from userHomePage
-      return redirect('/UserHomePage');
+      return {user: response.user};
     }
 
     if (response.status === 'IncorrectPassword' || response.status === 'UserNotFound') {
@@ -74,41 +81,3 @@ export const loginAction = async ({ request }) => {
  }
 
 export default LoginPage;
-
-
-/*
-export const loginAction = async ({ request }) => {
-  const { user, setUser } = userContext;
-  const loginInfo = await request.formData()
-  
-  //need to pull data from DB and if authentication passed
-  fetch('/api/login', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      username: loginInfo.get('username'),
-      password: loginInfo.get('password')
-    })
-  })
-  .then(response =>response.json())
-    .then(response => {
-      console.log("data received after login fetch");
-      switch (response.status) {
-        case 'valid': {
-          console.log('Login was successful!');
-          setUser(response.user); //doing this to make this response.user info accessible from userHomePage
-          return redirect('/UserHomePage');
-        }
-        case 'IncorrectPassword': {
-          return {error: 'Password is incorrect'}
-        }
-        default: {
-          return {error: `The status "${response.status}" sent in the response doesn't match the valid cases.`}
-          }
-       }
-     })
-  .catch(err => { error: err.message; });
-  return;
- }
-
-*/
