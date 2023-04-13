@@ -8,6 +8,6 @@ import './style.css';
 const root = createRoot(document.querySelector('#root'));
 root.render(
   <StrictMode>
-        <App/>
+    <App/>
   </StrictMode>
 );
