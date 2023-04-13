@@ -1,10 +1,19 @@
-import React, { useState, useContext } from 'react';
-import { useNavigate, Form, redirect, useActionData } from 'react-router-dom';
+import React, { useContext, useEffect } from 'react';
+import { useNavigate, Form, useActionData } from 'react-router-dom';
 import { userContext } from '../../context';
 
 const SignUpPage = () => {
-
+  const navigate = useNavigate();
+  const { user, setUser } = useContext(userContext)
   const data = useActionData();
+
+  useEffect(() => {
+    if (data && data.user !== undefined) {
+      console.log('in setter land')
+      setUser(data.user)
+      return navigate('/UserHomePage');
+    }
+  }, [data])
 
   return (
     <div>
@@ -29,7 +38,6 @@ const SignUpPage = () => {
 };
 
 export const signupAction = async ({ request }) => {
-  const { user, setUser } = useContext(userContext)
   const submitData = await request.formData();
 
   //need to store username/password to DB, then
@@ -54,11 +62,10 @@ export const signupAction = async ({ request }) => {
     console.log(response.user)
   if (response.status === 'valid') {
     console.log('Signup was successful!');
-    setUser(response.user); //doing this to make this response.user info accessible from userHomePage
-    return redirect('/UserHomePage');
+    return {user: response.user};
   }
 
-  if (response.status === 'DuplicateUsername') {
+  if (response.status === 'UserNameExists') {
     return { error: 'This username is taken, please choose another' };
   }
 
