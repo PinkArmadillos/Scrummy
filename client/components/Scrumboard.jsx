@@ -13,7 +13,7 @@ export default function Scrumboard({ storyList, taskList }) {
 	const toVerifyTasks = [];
 	const doneTasks = [];
 
-	console.log(taskList, 'task list')
+	console.log(taskList, 'task list');
 	// const hello = taskList[1]
 	// console.log("id?", hello.id)
 	// DIVIDE TASKS BY STATUS
@@ -21,15 +21,15 @@ export default function Scrumboard({ storyList, taskList }) {
 		for (const el of taskList) {
 			// console.log(el)
 			if (el.status === 'backlog') {
-				backlogTasks.push(<Task key={el.id} task={el} />);
+				backlogTasks.push(<Task key={el.id} task={el} id={el.task_id} />);
 			} else if (el.status === 'todo') {
-				todoTasks.push(<Task key={el.id} task={el} />);
+				todoTasks.push(<Task key={el.id} task={el} id={el.task_id} />);
 			} else if (el.status === 'inProgress') {
-				inProgTasks.push(<Task key={el.id} task={el} />);
+				inProgTasks.push(<Task key={el.id} task={el} id={el.task_id} />);
 			} else if (el.status === 'toVerify') {
-				toVerifyTasks.push(<Task key={el.id} task={el} />);
+				toVerifyTasks.push(<Task key={el.id} task={el} id={el.task_id} />);
 			} else if (el.status === 'done') {
-				doneTasks.push(<Task key={el.id} task={el} />);
+				doneTasks.push(<Task key={el.id} task={el} id={el.task_id} />);
 			}
 		}
 	}

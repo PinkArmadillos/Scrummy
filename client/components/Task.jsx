@@ -2,7 +2,7 @@ import React from 'react';
 import { useContext } from 'react';
 import { dragContext } from './MainContainer';
 
-export default function Task({ task }) {
+export default function Task({ task, id }) {
 	// MAKE PATCH REQUEST TO UPDATE TASK STATUS
 
 	const { handleOnDrag, getData } = useContext(dragContext);
@@ -58,7 +58,7 @@ export default function Task({ task }) {
 		<div
 			draggable
 			onDragStart={(e) => handleOnDrag(e)}
-			id={task.id}
+			id={id}
 			className={classes}
 			style={styles}>
 			<p>

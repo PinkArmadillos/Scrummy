@@ -1,7 +1,8 @@
 import { useContext, useState } from 'react';
 import React from 'react';
 import { dragContext } from './MainContainer';
-import {teamContext} from '../context';
+import { teamContext } from '../context';
+import { nanoid } from 'nanoid';
 
 export default function Forms({ storyList }) {
 	const [taskDesc, setTaskDesc] = useState('');
@@ -14,7 +15,6 @@ export default function Forms({ storyList }) {
 	const { team } = useContext(teamContext);
 
 	function addTask(event) {
-
 		event.preventDefault();
 		fetch('/api/task', {
 			method: 'POST',
@@ -25,8 +25,9 @@ export default function Forms({ storyList }) {
 				taskDesc,
 				taskOwner,
 				taskDiff,
-				taskColor,
-				status: 'to-do',
+				story_id: taskColor,
+				status: 'backlog',
+				task_id: nanoid(),
 			}),
 		})
 			.then(() => {
