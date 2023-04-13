@@ -27,7 +27,7 @@ export default function Task({ task, id, color }) {
 	}
 
 	// MAKE DELTE REQUEST TO DELETE TASK
-	function deleteTask(id) {
+	function deleteTask() {
 		fetch(`/api/task/${id}`, {
 			method: 'DELETE',
 		})
@@ -75,7 +75,7 @@ export default function Task({ task, id, color }) {
 			</select>
 			<div
 				style={{ display: 'flex', width: 100 + '%', justifyContent: 'center' }}>
-				<button type='button' onClick={() => deleteTask(task.id)}>
+				<button type='button' onClick={() => deleteTask()}>
 					Delete
 				</button>
 			</div>

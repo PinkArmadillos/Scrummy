@@ -127,7 +127,7 @@ scrumController.updateTask = (req, res, next) => {
 scrumController.deleteTask = (req, res, next) => {
 	const id = req.params.id;
 	const values = [id];
-	const queryString = `DELETE FROM task WHERE id = $1`;
+	const queryString = `DELETE FROM task WHERE task_id = $1`;
 
 	db.query(queryString, values)
 		.then((data) => {
