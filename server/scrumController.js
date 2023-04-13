@@ -19,8 +19,9 @@ scrumController.getStories = (req, res, next) => {
 			return next();
 		})
 		.catch((err) => {
+			console.log(err, 'stories error')
 			const errorObj = {
-				log: 'scrumController.getStories middleware error',
+				log: `scrumController.getStories middleware error: ${err.message}`,
 				status: 501,
 				message: 'Unable to fetch stories',
 			};
@@ -32,8 +33,7 @@ scrumController.getStories = (req, res, next) => {
 scrumController.getTasks = (req, res, next) => {
 	const { team_id } = req.body;
 	const values = [team_id];
-	const queryStr = `SELECT * FROM "public"."task"
-	FROM "public"."story" s INNER JOIN "public"."task" t
+	const queryStr = `SELECT * FROM "public"."task" AS t INNER JOIN  "public"."story" s 
 	ON t.story_id = s.id
 	WHERE s.team_id = $1
 	`
@@ -41,9 +41,11 @@ scrumController.getTasks = (req, res, next) => {
 	db.query(queryStr, values)
 		.then((data) => {
 			res.locals.tasks = data.rows;
+			console.log('DATTTAAA ROWSSSSSSSSSS',data.rows)
 			return next();
 		})
 		.catch((err) => {
+			console.log(err, 'err')
 			const errorObj = {
 				log: 'scrumcontroller.getTasks middleware error',
 				status: 501,
@@ -57,7 +59,9 @@ scrumController.getTasks = (req, res, next) => {
 scrumController.postTask = (req, res, next) => {
 	//change these values to match database
 	const { taskDesc, taskDiff, taskOwner, taskColor } = req.body;
-	const values = [taskDesc, taskDiff, taskOwner, taskColor, 'backlog'];
+	const story_id = Number(taskColor);
+	console.log('story_id type:',typeof story_id)
+	const values = [taskDesc, taskDiff, taskOwner, story_id, 'backlog'];
 	console.log(values);
 	const queryString = `
   INSERT INTO task (description, difficulty, name, story_id, status)
@@ -101,14 +105,17 @@ scrumController.postStory = (req, res, next) => {
 // UPDATE TASK STATUS --------------------------------------------------------------------------------
 scrumController.updateTask = (req, res, next) => {
 	const { status, task_id } = req.body;
+	console.log(task_id)
 	const values = [status, task_id];
-	const queryString = `UPDATE task SET status = $1 WHERE id = $2`;
-
+	const queryString = `UPDATE task SET status = $1 WHERE id = $2 RETURNING *`;
+	console.log('status', status)
 	db.query(queryString, values)
 		.then((data) => {
+			console.log(data.rows)
 			return next();
 		})
 		.catch((err) => {
+			console.log('error', err)
 			const errorObj = {
 				log: 'scrumController.updateTask middleware error',
 				status: 501,

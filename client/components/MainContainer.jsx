@@ -19,6 +19,7 @@ export default function MainContainer() {
 	}, []);
 
 	function newDragStatus(newStatus) {
+		console.log('new status', newStatus, dragid)
 		fetch('/api/task', {
 			method: 'PATCH',
 			body: JSON.stringify({
@@ -28,10 +29,12 @@ export default function MainContainer() {
 			headers: {
 				'Content-type': 'application/json',
 			},
-		})
-			.then(() => {
-				getData();
-			})
+		}).then((res) => {
+				return res.json()
+			}).then(data => {
+					console.log('this should be updated task status', data)
+					getData();
+				})
 			.catch((err) => {
 				console.log({ err: `Error updating task status: ${err}` });
 			});
@@ -57,12 +60,17 @@ export default function MainContainer() {
 			},
 			body: JSON.stringify({team_id: team})
 		} )
-			.then((data) => data.json())
+			.then((data) => {
+				console.log(data, 'raw data')
+				return data.json()
+			})
 			.then((data) => {
 				console.log(data, 'this is the response from server');
 				setStories(data.stories);
 				console.log(data.stories);
 				setTasks(data.tasks);
+				//setTasks(data.status);
+				console.log(data.tasks)
 			})
 			.catch((err) => {
 				console.log({ err: `Error fetching task and story data: ${err}` });
