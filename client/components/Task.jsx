@@ -73,9 +73,22 @@ export default function Task({ task }) {
 				<span className='task-label'>Difficulty</span>
 				{task.difficulty}
 			</p>
-			<button type='button' onClick={() => deleteTask(task.id)}>
-				Delete
-			</button>
+			<select onChange={(e) => changeStatus(e.target.value)}>
+				<option value='' hidden>
+					Change status
+				</option>
+				<option value='backlog'>Backlog</option>
+				<option value='todo'>To Do</option>
+				<option value='inProgress'>In Progress</option>
+				<option value='toVerify'>To Verify</option>
+				<option value='done'>Done</option>
+			</select>
+			<div
+				style={{ display: 'flex', width: 100 + '%', justifyContent: 'center' }}>
+				<button type='button' onClick={() => deleteTask(task.id)}>
+					Delete
+				</button>
+			</div>
 		</div>
 	);
 }

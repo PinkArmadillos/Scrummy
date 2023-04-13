@@ -1,6 +1,9 @@
 import React, { useState, useEffect, createContext } from 'react';
 import Scrumboard from './Scrumboard';
 import Forms from './Forms';
+import {userContext,teamContext} from '../context'
+
+
 
 export const dragContext = createContext();
 
@@ -8,6 +11,7 @@ export default function MainContainer() {
 	const [stories, setStories] = useState([]);
 	const [tasks, setTasks] = useState([]);
 	const [dragid, setDragId] = useState(0);
+	const {team, setTeam} = useContext(teamContext);
 
 	useEffect(() => {
 		getData();
@@ -45,11 +49,13 @@ export default function MainContainer() {
 	}
 
 	function getData() {
-		fetch('/api/')
-			//add team id to request here
-			//make this a POST request
-			//include team_id
-
+		fetch('/api/',{
+			method:'POST',
+			headers:{
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({team_id: team})
+		} )
 			.then((data) => data.json())
 			.then((data) => {
 				console.log(data, 'this is the response from server');
