@@ -46,6 +46,7 @@ scrumController.postTask = (req, res, next) => {
 	//change these values to match database
 	const { taskDesc, taskDiff, taskOwner, taskColor } = req.body;
 	const values = [taskDesc, taskDiff, taskOwner, taskColor, 'backlog'];
+	console.log(values);
 	const queryString = `
   INSERT INTO task (description, difficulty, name, story_id, status)
   VALUES ($1, $2, $3, $4, $5)`;
