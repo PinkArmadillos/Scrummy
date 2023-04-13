@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react';
-import { userContext } from '../../context';
+import { userContext, teamContext } from '../../context';
 import { useNavigate } from 'react-router-dom';
 
 import TeamDisplay from './components/TeamDisplay';
@@ -7,31 +7,98 @@ import TeamDisplay from './components/TeamDisplay';
 
 const UserHomePage = () => {
   const { user, setUser } = useContext(userContext);
-  const [joinTripCode, setJoinTripCode] = useState('');
+  const { team, setTeam } = useContext(teamContext);
+  const [joinTeamCode, setJoinTeamCode] = useState('');
   const [newTeamName, setNewTeamName] = useState('');
   const [teamArray, setTeamArray] = useState([]);
   const navigate = useNavigate();
 
 
-  // NOT built yet
-  const handleCreateTeam = (e) => {
+  // Function executes when the user clicks the "Create New Team" button.
+  // Takes the input from the associated input field, creates a team with that input as the team name,
+  // adds the current user to that team, and then redirects to that team's scrum board
+  const handleCreateTeam = async (e) => {
     e.preventDefault();
+    //check to make sure they've entered info into the team name input element
+    if (newTeamName === '') {
+      alert('Please enter a team name before submitting');
+      return;
+    }
+    
     // query to backend middleware to handle insertion of user and team into userTeam table
-  }
+    const response = await fetch('/api/user/create-team', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        user_id: user.user_id,
+        team_name: newTeamName
+      })
+    });
+      
+    console.log('repsonse:', response);
+    if (response.status === 200) {
+      const res = await response.json()
+      //Updates global team context to the team_id that was just created 
+      setTeam(res.team_id);
+      console.log('team_id:', res.team_id);
+      //navigates to scrumboard
+      return navigate('/ScrumBoardPage');
+    }
+    
+    alert('Server fail');
+    return;
+  };
+  
+  // Function executes when a team url is added and the user clicks the "Join Team" button.
+  // Adds the user to the team provided and navigates to the ScrumBoardPage for that team
+  const handleJoinTeam = async (e) => {
+    e.preventDefault();
+    //check to make sure they've put info into the join team input field
+    if (joinTeamCode === '') {
+      alert('Please enter a team url before submitting');
+      return;
+    };
+    console.log('join team code:', joinTeamCode)
+    //send a post request to the backend to add current context user to team from url
+    const response = await fetch(`/api/user/join-team/${joinTeamCode}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ user_id: user.user_id })
+    });
+    
+    console.log('repsonse:', response);
+    if (response.status === 200) {
+      const res = await response.json()
+      //check variable sent back to see if add was successful
+      if (res.teamAdded) {
+        console.log(user.username, 'was successfully added to the team!')
+        //Updates global team context to the team_id that was just created 
+        setTeam(res.team_id);
+        console.log('team_id:', res.team_id);
+        //navigates to scrumboard
+        return navigate('/ScrumBoardPage');
+      }
+      //There's probably a smoother way to make this happen. Maybe adding a stateful
+      //message in the page
+      alert('Server could not add you to the team because the team url was invalid')
+      return;
+    }
+    alert('Server fail');
+    return;
+  };
+  
 
-  // NOT built yet
-  const handleJoinTeam = (e) => {
-      e.preventDefault();
-      // console.log(user);
-      // patch
-      // TODO make functionality in backend lol
-      // return navigate('/ScrumBoardPage');
-  }
+  //Update teamArray displayed below after user has been loaded from global context
+  useEffect(() => {
+    setTeamArray(makeTeamArray(user.userTeams));
+  }, [user]);
 
-useEffect(() => {
-  setTeamArray(makeTeamArray(user.userTeams));
-}, [user]);
 
+  //What renders from the funcitonal component
   return (
     <div className="user-home-page">
       <h1>User Home Page</h1>
@@ -41,7 +108,7 @@ useEffect(() => {
       </div>
       <div id='create-team-div'>
         <input type="text" placeholder={"Enter your team url here"} onChange={(e) => setJoinTeamCode(e.target.value)} />
-        <button onClick={handleJoinTeam}>Join Trip</button>
+        <button onClick={handleJoinTeam}>Join Team</button>
       </div>
         <div id='teams-container-div'>
           <h2>Your Teams</h2>

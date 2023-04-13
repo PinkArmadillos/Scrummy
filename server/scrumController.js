@@ -177,7 +177,6 @@ scrumController.verifyUser = (req, res, next) => {
 			
 			console.log(`Successfully found ${dbUser} in the database through verifyUser`)
 			const userObj = {
-				exists: true,
 				user_id: data.rows[0].id,
 				username: dbUser
 			}
@@ -242,7 +241,7 @@ scrumController.checkUsername = (req, res, next) => {
     console.log('in query')
 		if (data.rows[0] !== undefined) {
 			res.locals.status = 'UserNameExists';
-			next();
+			return next();
 		}
 		if (data.rows[0] === undefined) {
 			console.log('Username does not exist')
@@ -280,7 +279,7 @@ scrumController.createUser = (req, res, next) => {
 	const queryString = 
 	`INSERT INTO "public"."user" (username, password)
 	VALUES ($1, $2)
-  RETURNING username, id`
+  RETURNING username, id AS user_id`
 	console.log("queryString: ", queryString)
 	db.query(queryString, values)
 	.then((data) => {
