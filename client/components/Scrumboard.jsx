@@ -13,6 +13,7 @@ export default function Scrumboard({ storyList, taskList }) {
 	const toVerifyTasks = [];
 	const doneTasks = [];
 
+
 	// const hello = taskList[1]
 	// console.log("id?", hello.id)
 	// DIVIDE TASKS BY STATUS

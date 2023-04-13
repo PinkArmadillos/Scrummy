@@ -6,6 +6,16 @@ export default function Task({ task }) {
 	// MAKE PATCH REQUEST TO UPDATE TASK STATUS
 
 	const { handleOnDrag, getData } = useContext(dragContext);
+	const colorCoder = {
+		23: '#d96e62',
+		24: '#708c6c',
+		25: '#a7cff2',
+		26: '#e8b168',
+		27: '#4287f5',
+		29: '#dbabc6',
+		31: 'gray',
+		33: '#b991db',
+	};
 
 	function changeStatus(newStatus) {
 		fetch('/api/task', {
@@ -40,8 +50,8 @@ export default function Task({ task }) {
 	}
 
 	// const classes = `task ${task.color}`;
-  const classes = 'task';
-  const styles = { "backgroundColor": task.color };
+	const classes = 'task';
+	const styles = { backgroundColor: colorCoder[task.story_id] };
 	// RENDER TASK COMPONENT
 	//
 	return (
@@ -49,9 +59,8 @@ export default function Task({ task }) {
 			draggable
 			onDragStart={(e) => handleOnDrag(e)}
 			id={task.id}
-      className={classes}
-      style={styles}
-    >
+			className={classes}
+			style={styles}>
 			<p>
 				<span className='task-label'>Task</span>
 				{task.description}
