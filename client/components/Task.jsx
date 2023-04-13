@@ -73,7 +73,7 @@ export default function Task({ task }) {
 				<span className='task-label'>Difficulty</span>
 				{task.difficulty}
 			</p>
-			{/* <select onChange={(e) => changeStatus(e.target.value)}>
+			<select onChange={(e) => changeStatus(e.target.value)}>
 				<option value='' hidden>
 					Change status
 				</option>
@@ -82,7 +82,7 @@ export default function Task({ task }) {
 				<option value='inProgress'>In Progress</option>
 				<option value='toVerify'>To Verify</option>
 				<option value='done'>Done</option>
-			</select> */}
+			</select>
 			<div
 				style={{ display: 'flex', width: 100 + '%', justifyContent: 'center' }}>
 				<button type='button' onClick={() => deleteTask(task.id)}>

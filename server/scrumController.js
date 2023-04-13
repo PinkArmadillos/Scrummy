@@ -4,8 +4,11 @@ const express = require('express');
 const scrumController = {};
 
 // GET STORIES
+
 scrumController.getStories = (req, res, next) => {
 	const queryStr = 'SELECT * FROM story';
+		//inner join
+	//select * from story where team_id = passed in team_id
 
 	db.query(queryStr)
 		.then((data) => {
@@ -25,6 +28,7 @@ scrumController.getStories = (req, res, next) => {
 // GET TASKS
 scrumController.getTasks = (req, res, next) => {
 	const queryStr = 'SELECT * FROM task';
+	//inner join
 
 	db.query(queryStr)
 		.then((data) => {
