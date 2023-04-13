@@ -1,13 +1,15 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import React from 'react';
+import { dragContext } from './MainContainer';
 
-export default function Forms({ getData, storyList }) {
+export default function Forms({ storyList }) {
 	const [taskDesc, setTaskDesc] = useState('');
 	const [taskOwner, setTaskOwner] = useState('');
 	const [taskDiff, setTaskDiff] = useState('');
 	const [taskColor, setTaskColor] = useState('');
 	const [storyDesc, setStoryDesc] = useState('');
 	const [storyColor, setStoryColor] = useState('');
+	const { getData } = useContext(dragContext);
 
 	function addTask(event) {
 		event.preventDefault();
@@ -20,8 +22,8 @@ export default function Forms({ getData, storyList }) {
 				taskDesc,
 				taskOwner,
 				taskDiff,
-        taskColor,
-        status: 'to-do'
+				taskColor,
+				status: 'to-do',
 			}),
 		})
 			.then(() => {
@@ -33,7 +35,7 @@ export default function Forms({ getData, storyList }) {
 				getData();
 			})
 			.catch((err) => {
-				console.log({ err: 'Error adding task' });
+				console.log({ err: `Error adding task: ${err}` });
 			});
 	}
 
@@ -56,7 +58,7 @@ export default function Forms({ getData, storyList }) {
 				getData();
 			})
 			.catch((err) => {
-				console.log({ err: 'Error adding story' });
+				console.log({ err: `Error adding story: ${err}` });
 			});
 	}
 
@@ -67,7 +69,7 @@ export default function Forms({ getData, storyList }) {
 		const shortDescription = story.description.slice(0, 20);
 		const optionKey = `desc${story.id}`;
 		descArr.push(
-			<option key={optionKey} value={story.color}>
+			<option key={optionKey} value={story.id}>
 				{shortDescription}
 			</option>
 		);
@@ -86,11 +88,16 @@ export default function Forms({ getData, storyList }) {
 					<option value='' hidden>
 						Choose Color
 					</option>
-					<option value='r215g188b200'>Thistle</option>
-					<option value='r98g150b119'>Zomp</option>
-					<option value='r163g206b241'>Uranian Blue</option>
-					<option value='r242g149b89'>Atomic Tangerine</option>
-					<option value='r232g225b155'>Vanilla</option>
+					//these values should correspond to story_id in database
+					<option value='#ed7ec8'>Thistle</option>
+					<option value='#708c6c'>Zomp</option>
+					<option value='#a7cff2'>Uranian Blue</option>
+					<option value='#e8b168'>Atomic Tangerine</option>
+					<option value='#4287f5'>Cool Blue</option>
+					<option value='#dbabc6'>Pink</option>
+					<option value='#d96e62'>Dry Rose</option>
+					<option value='#b991db'>Lilac</option>
+					<option value='gray'>Gray</option>
 				</select>
 				<input id='submit-story' type='submit' value='Add Story' />
 			</form>
@@ -119,6 +126,8 @@ export default function Forms({ getData, storyList }) {
 					id='task-diff'
 					name='task-diff'
 					type='number'
+					min='1'
+					max='5'
 					onChange={(e) => setTaskDiff(e.target.value)}></input>
 				<input type='submit' value='Add Task' id='submit-task' />
 			</form>

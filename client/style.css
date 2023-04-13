@@ -136,6 +136,22 @@ hr {
   background-color: rgb(232, 225, 155);
 }
 
+.pink {
+  background-color: pink;
+}
+
+.dryrose {
+  background-color: rgb(177, 75, 92);
+}
+
+.lilac {
+  background-color: rgb(186, 149, 198);
+}
+
+.gray {
+  background-color: rgb(171, 168, 168);
+}
+
 .nav-link{
   color: dodgerblue;
   margin: 15px;
