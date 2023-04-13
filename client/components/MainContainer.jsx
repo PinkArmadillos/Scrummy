@@ -54,6 +54,7 @@ export default function MainContainer() {
 			.then((data) => {
 				console.log(data, 'this is the response from server');
 				setStories(data.stories);
+				console.log(data.stories);
 				setTasks(data.tasks);
 			})
 			.catch((err) => {

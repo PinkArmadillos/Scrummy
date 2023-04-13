@@ -69,7 +69,7 @@ export default function Forms({ storyList }) {
 		const shortDescription = story.description.slice(0, 20);
 		const optionKey = `desc${story.id}`;
 		descArr.push(
-			<option key={optionKey} value={story.color}>
+			<option key={optionKey} value={story.id}>
 				{shortDescription}
 			</option>
 		);

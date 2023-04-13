@@ -47,7 +47,7 @@ scrumController.postTask = (req, res, next) => {
 	const { taskDesc, taskDiff, taskOwner, taskColor } = req.body;
 	const values = [taskDesc, taskDiff, taskOwner, taskColor, 'backlog'];
 	const queryString = `
-  INSERT INTO task (description, difficulty, name, color, status)
+  INSERT INTO task (description, difficulty, name, story_id, status)
   VALUES ($1, $2, $3, $4, $5)`;
 
 	db.query(queryString, values)
@@ -55,6 +55,7 @@ scrumController.postTask = (req, res, next) => {
 			return next();
 		})
 		.catch((err) => {
+			console.log(err);
 			const errorObj = {
 				log: 'scrumController.postTask middleware error',
 				status: 501,
