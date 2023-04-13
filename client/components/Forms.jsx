@@ -35,7 +35,7 @@ export default function Forms({ storyList }) {
 				getData();
 			})
 			.catch((err) => {
-				console.log({ err: 'Error adding task' });
+				console.log({ err: `Error adding task: ${err}` });
 			});
 	}
 
@@ -58,7 +58,7 @@ export default function Forms({ storyList }) {
 				getData();
 			})
 			.catch((err) => {
-				console.log({ err: 'Error adding story' });
+				console.log({ err: `Error adding story: ${err}` });
 			});
 	}
 

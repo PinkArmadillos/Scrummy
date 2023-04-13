@@ -22,7 +22,7 @@ export default function Task({ task }) {
 				getData();
 			})
 			.catch((err) => {
-				console.log({ err: 'Error updating task status' });
+				console.log({ err: `Error updating task status: ${err}` });
 			});
 	}
 
@@ -35,7 +35,7 @@ export default function Task({ task }) {
 				getData();
 			})
 			.catch((err) => {
-				console.log({ err: 'Error deleting task' });
+				console.log({ err: `Error deleting task: ${err}` });
 			});
 	}
 

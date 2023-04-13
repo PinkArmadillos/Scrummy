@@ -14,7 +14,7 @@ export default function Story({ story }) {
 				getData();
 			})
 			.catch((err) => {
-				console.log({ err: 'Error deleting story' });
+				console.log({ err: `Error deleting story: ${err}` });
 			});
 	}
 

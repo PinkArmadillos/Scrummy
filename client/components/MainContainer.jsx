@@ -9,6 +9,10 @@ export default function MainContainer() {
 	const [tasks, setTasks] = useState([]);
 	const [dragid, setDragId] = useState(0);
 
+	useEffect(() => {
+		getData();
+	}, []);
+
 	function newDragStatus(newStatus) {
 		fetch('/api/task', {
 			method: 'PATCH',
@@ -24,13 +28,9 @@ export default function MainContainer() {
 				getData();
 			})
 			.catch((err) => {
-				console.log({ err: 'Error updating task status' });
+				console.log({ err: `Error updating task status: ${err}` });
 			});
 	}
-
-	useEffect(() => {
-		getData();
-	}, []);
 
 	function handleOnDrag(e) {
 		setDragId(e.target.id);
@@ -57,7 +57,7 @@ export default function MainContainer() {
 				setTasks(data.tasks);
 			})
 			.catch((err) => {
-				console.log({ err: 'Error fetching task and story data' });
+				console.log({ err: `Error fetching task and story data: ${err}` });
 			});
 	}
 
