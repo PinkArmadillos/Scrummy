@@ -9,6 +9,10 @@ export default function MainContainer() {
 	const [tasks, setTasks] = useState([]);
 	const [dragid, setDragId] = useState(0);
 
+	useEffect(() => {
+		getData();
+	}, []);
+
 	function newDragStatus(newStatus) {
 		fetch('/api/task', {
 			method: 'PATCH',
@@ -24,21 +28,12 @@ export default function MainContainer() {
 				getData();
 			})
 			.catch((err) => {
-				console.log({ err: 'Error updating task status' });
+				console.log({ err: `Error updating task status: ${err}` });
 			});
 	}
 
-	useEffect(() => {
-		getData();
-	}, []);
-
 	function handleOnDrag(e) {
-		console.log('target', e);
 		setDragId(e.target.id);
-	}
-
-	function handleDragOver(e) {
-		e.preventDefault();
 	}
 
 	function handleDrop(e) {
@@ -46,20 +41,24 @@ export default function MainContainer() {
 		if (id === 'stories') {
 			return;
 		}
-		console.log(dragid);
 		newDragStatus(id);
 	}
 
 	function getData() {
 		fetch('/api/')
+			//add team id to request here
+			//make this a POST request
+			//include team_id
+
 			.then((data) => data.json())
 			.then((data) => {
 				console.log(data, 'this is the response from server');
 				setStories(data.stories);
+				console.log(data.stories);
 				setTasks(data.tasks);
 			})
 			.catch((err) => {
-				console.log({ err: 'Error fetching task and story data' });
+				console.log({ err: `Error fetching task and story data: ${err}` });
 			});
 	}
 
@@ -69,9 +68,7 @@ export default function MainContainer() {
 			value={{
 				handleOnDrag,
 				handleDrop,
-				handleDragOver,
 				getData,
-				newDragStatus,
 			}}>
 			<div className='mainContainer'>
 				<Forms storyList={stories} />
