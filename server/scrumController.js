@@ -3,7 +3,7 @@ const express = require('express');
 
 const scrumController = {};
 
-// GET STORIES
+// GET STORIES ----------------------------------------------------------------------------------------
 scrumController.getStories = (req, res, next) => {
 
 	const queryStr = 'SELECT * FROM story';
@@ -23,7 +23,7 @@ scrumController.getStories = (req, res, next) => {
 		});
 };
 
-// GET TASKS
+// GET TASKS ------------------------------------------------------------------------------------------
 scrumController.getTasks = (req, res, next) => {
 
 	const queryStr = 'SELECT * FROM task';
@@ -44,7 +44,7 @@ scrumController.getTasks = (req, res, next) => {
 
 };
 
-// ADD TASK
+// ADD TASK -------------------------------------------------------------------------------------------
 scrumController.postTask = (req, res, next) => {
 	const { taskDesc, taskDiff, taskOwner, taskColor } = req.body;
 	const values = [taskDesc, taskDiff, taskOwner, taskColor, 'backlog'];
@@ -66,7 +66,7 @@ scrumController.postTask = (req, res, next) => {
 		});
 };
 
-// ADD STORY
+// ADD STORY -----------------------------------------------------------------------------------------
 scrumController.postStory = (req, res, next) => {
 	const { storyDesc, storyColor } = req.body;
 	const values = [storyDesc, storyColor];
@@ -86,7 +86,7 @@ scrumController.postStory = (req, res, next) => {
 		});
 };
 
-// UPDATE TASK STATUS
+// UPDATE TASK STATUS --------------------------------------------------------------------------------
 scrumController.updateTask = (req, res, next) => {
 	const { status, task_id } = req.body;
 	const values = [status, task_id];
@@ -106,7 +106,7 @@ scrumController.updateTask = (req, res, next) => {
 		});
 };
 
-// DELETE TASK
+// DELETE TASK -----------------------------------------------------------------------------------------
 scrumController.deleteTask = (req, res, next) => {
 	const id = req.params.id;
 	const values = [id];
@@ -126,7 +126,7 @@ scrumController.deleteTask = (req, res, next) => {
 		});
 };
 
-// DELETE STORY
+// DELETE STORY ----------------------------------------------------------------------------------------
 scrumController.deleteStory = (req, res, next) => {
 	const id = req.params.id;
 	const values = [id];
@@ -146,7 +146,7 @@ scrumController.deleteStory = (req, res, next) => {
 		});
 };
 
-// VERIFY USER LOGIN
+// VERIFY USER LOGIN ---------------------------------------------------------------------------------------
 scrumController.verifyUser = (req, res, next) => {
 	const { username, password } = req.body;
 	const values = [username]
@@ -198,8 +198,7 @@ scrumController.verifyUser = (req, res, next) => {
 	});
 }
 
-
-// Controller to get Teams
+// Controller to get Teams --------------------------------------------------------------------------------
 scrumController.getTeams = (req, res, next) => {
 	if (res.locals.user === undefined) {
 		return next();
@@ -229,7 +228,7 @@ scrumController.getTeams = (req, res, next) => {
 	});
 }
 
-//Controller to check username
+//Controller to check username --------------------------------------------------------------------------------
 scrumController.checkUsername = (req, res, next) => {
 	const { username, password } = req.body;
 	const values = [username]
@@ -267,7 +266,7 @@ scrumController.checkUsername = (req, res, next) => {
 	});
 }
 
-// controller to create user
+// controller to create user --------------------------------------------------------------------------------
 scrumController.createUser = (req, res, next) => {
   console.log('Inside create user')
   if (res.locals.status !== 'valid') {
