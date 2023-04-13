@@ -1,6 +1,7 @@
 import { useContext, useState } from 'react';
 import React from 'react';
 import { dragContext } from './MainContainer';
+import {teamContext} from '../context';
 
 export default function Forms({ storyList }) {
 	const [taskDesc, setTaskDesc] = useState('');
@@ -10,8 +11,10 @@ export default function Forms({ storyList }) {
 	const [storyDesc, setStoryDesc] = useState('');
 	const [storyColor, setStoryColor] = useState('');
 	const { getData } = useContext(dragContext);
+	const { team } = useContext(teamContext);
 
 	function addTask(event) {
+
 		event.preventDefault();
 		fetch('/api/task', {
 			method: 'POST',
@@ -49,6 +52,7 @@ export default function Forms({ storyList }) {
 			body: JSON.stringify({
 				storyDesc,
 				storyColor,
+				team_id: team,
 			}),
 		})
 			.then(() => {

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, createContext } from 'react';
+import React, { useState, useEffect, createContext,useContext } from 'react';
 import Scrumboard from './Scrumboard';
 import Forms from './Forms';
 import {userContext,teamContext} from '../context'
@@ -11,10 +11,11 @@ export default function MainContainer() {
 	const [stories, setStories] = useState([]);
 	const [tasks, setTasks] = useState([]);
 	const [dragid, setDragId] = useState(0);
-	const {team, setTeam} = useContext(teamContext);
+	const {team} = useContext(teamContext);
 
 	useEffect(() => {
 		getData();
+		console.log('use effect')
 	}, []);
 
 	function newDragStatus(newStatus) {
