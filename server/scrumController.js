@@ -43,6 +43,7 @@ scrumController.getTasks = (req, res, next) => {
 
 // ADD TASK
 scrumController.postTask = (req, res, next) => {
+	//change these values to match database
 	const { taskDesc, taskDiff, taskOwner, taskColor } = req.body;
 	const values = [taskDesc, taskDiff, taskOwner, taskColor, 'backlog'];
 	const queryString = `
