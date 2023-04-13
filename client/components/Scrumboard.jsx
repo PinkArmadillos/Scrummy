@@ -5,7 +5,7 @@ import { dragContext } from './MainContainer';
 
 export default function Scrumboard({ storyList, taskList }) {
 	// TASKS BY STATUS
-	const { handleDrop, handleDragOver } = useContext(dragContext);
+	const { handleDrop } = useContext(dragContext);
 
 	const backlogTasks = [];
 	const todoTasks = [];
@@ -44,13 +44,12 @@ export default function Scrumboard({ storyList, taskList }) {
 
 	// RENDER SCRUMBOARD
 	return (
-
 		<div className='scrumboard'>
 			<div
 				id='backlog'
 				className='column'
 				onDrop={handleDrop}
-				onDragOver={handleDragOver}>
+				onDragOver={(e) => e.preventDefault()}>
 				<h3>Backlog</h3>
 				<hr />
 				{backlogTasks}
@@ -59,7 +58,7 @@ export default function Scrumboard({ storyList, taskList }) {
 				id='stories'
 				className='column'
 				onDrop={handleDrop}
-				onDragOver={handleDragOver}>
+				onDragOver={(e) => e.preventDefault()}>
 				<h3>Stories</h3>
 				<hr />
 				{stories}
@@ -68,7 +67,7 @@ export default function Scrumboard({ storyList, taskList }) {
 				id='todo'
 				className='column'
 				onDrop={handleDrop}
-				onDragOver={handleDragOver}>
+				onDragOver={(e) => e.preventDefault()}>
 				<h3>To Do</h3>
 				<hr />
 				{todoTasks}
@@ -77,7 +76,7 @@ export default function Scrumboard({ storyList, taskList }) {
 				id='inProgress'
 				className='column'
 				onDrop={handleDrop}
-				onDragOver={handleDragOver}>
+				onDragOver={(e) => e.preventDefault()}>
 				<h3>In Progress</h3>
 				<hr />
 				{inProgTasks}
@@ -86,7 +85,7 @@ export default function Scrumboard({ storyList, taskList }) {
 				id='toVerify'
 				className='column'
 				onDrop={handleDrop}
-				onDragOver={handleDragOver}>
+				onDragOver={(e) => e.preventDefault()}>
 				<h3>To Verify</h3>
 				<hr />
 				{toVerifyTasks}
@@ -95,12 +94,11 @@ export default function Scrumboard({ storyList, taskList }) {
 				id='done'
 				className='column'
 				onDrop={handleDrop}
-				onDragOver={handleDragOver}>
+				onDragOver={(e) => e.preventDefault()}>
 				<h3>Done</h3>
 				<hr />
 				{doneTasks}
 			</div>
 		</div>
-
 	);
 }

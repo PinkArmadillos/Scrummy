@@ -33,12 +33,7 @@ export default function MainContainer() {
 	}, []);
 
 	function handleOnDrag(e) {
-		console.log('target', e);
 		setDragId(e.target.id);
-	}
-
-	function handleDragOver(e) {
-		e.preventDefault();
 	}
 
 	function handleDrop(e) {
@@ -46,12 +41,15 @@ export default function MainContainer() {
 		if (id === 'stories') {
 			return;
 		}
-		console.log(dragid);
 		newDragStatus(id);
 	}
 
 	function getData() {
 		fetch('/api/')
+			//add team id to request here
+			//make this a POST request
+			//include team_id
+
 			.then((data) => data.json())
 			.then((data) => {
 				console.log(data, 'this is the response from server');
@@ -69,9 +67,7 @@ export default function MainContainer() {
 			value={{
 				handleOnDrag,
 				handleDrop,
-				handleDragOver,
 				getData,
-				newDragStatus,
 			}}>
 			<div className='mainContainer'>
 				<Forms storyList={stories} />
