@@ -4,12 +4,15 @@ const express = require('express');
 const app = express();
 
 const router = require('./routes');
+const userRouter = require('./routes/userRouter');
 
 const PORT = 3000;
 
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true}));
+
+app.use('/api/user', userRouter);
 
 app.use('/api', router);
 

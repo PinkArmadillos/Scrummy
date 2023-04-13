@@ -173,13 +173,29 @@ scrumController.verifyUser = (req, res, next) => {
 					`Successfully found ${dbUser} in the database through verifyUser`
 				);
 				const userObj = {
-					exists: true,
 					user_id: data.rows[0].id,
 					username: dbUser,
 				};
-				res.locals.user = userObj;
-				res.locals.status = 'valid';
-				return next();
+				const dbPass = data.rows[0].password;
+				if (dbPass !== password) {
+					res.locals.status = 'IncorrectPassword';
+					return next();
+				}
+				if (dbPass === password) {
+					const dbUser = data.rows[0].username;
+
+					console.log(
+						`Successfully found ${dbUser} in the database through verifyUser`
+					);
+					const userObj = {
+						exists: true,
+						user_id: data.rows[0].id,
+						username: dbUser,
+					};
+					res.locals.user = userObj;
+					res.locals.status = 'valid';
+					return next();
+				}
 			}
 		})
 		.catch((err) => {
@@ -235,7 +251,7 @@ scrumController.checkUsername = (req, res, next) => {
 			console.log('in query');
 			if (data.rows[0] !== undefined) {
 				res.locals.status = 'UserNameExists';
-				next();
+				return next();
 			}
 			if (data.rows[0] === undefined) {
 				console.log('Username does not exist');
@@ -245,10 +261,19 @@ scrumController.checkUsername = (req, res, next) => {
 					username: newUsername,
 					password: newPassword,
 				};
-				console.log(user);
-				res.locals.newUser = user;
-				res.locals.status = 'valid';
-				return next();
+				if (data.rows[0] === undefined) {
+					console.log('Username does not exist');
+					const newUsername = req.body.username;
+					const newPassword = req.body.password;
+					const user = {
+						username: newUsername,
+						password: newPassword,
+					};
+					console.log(user);
+					res.locals.newUser = user;
+					res.locals.status = 'valid';
+					return next();
+				}
 			}
 		})
 		.catch((err) => {
@@ -273,7 +298,7 @@ scrumController.createUser = (req, res, next) => {
 	console.log('values: ', values);
 	const queryString = `INSERT INTO "public"."user" (username, password)
 	VALUES ($1, $2)
-  RETURNING username, id`;
+  RETURNING username, id AS user_id`;
 	console.log('queryString: ', queryString);
 	db.query(queryString, values)
 		.then((data) => {

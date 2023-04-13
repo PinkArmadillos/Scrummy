@@ -39,8 +39,9 @@ export default function Task({ task }) {
 			});
 	}
 
-	const classes = `task ${task.color}`;
-
+	// const classes = `task ${task.color}`;
+  const classes = 'task';
+  const styles = { "backgroundColor": task.color };
 	// RENDER TASK COMPONENT
 	//
 	return (
@@ -48,17 +49,19 @@ export default function Task({ task }) {
 			draggable
 			onDragStart={(e) => handleOnDrag(e)}
 			id={task.id}
-			className={classes}>
+      className={classes}
+      style={styles}
+    >
 			<p>
-				<span class='task-label'>Task</span>
+				<span className='task-label'>Task</span>
 				{task.description}
 			</p>
 			<p>
-				<span class='task-label'>Name</span>
+				<span className='task-label'>Name</span>
 				{task.name}
 			</p>
 			<p>
-				<span class='task-label'>Difficulty</span>
+				<span className='task-label'>Difficulty</span>
 				{task.difficulty}
 			</p>
 			<select onChange={(e) => changeStatus(e.target.value)}>
