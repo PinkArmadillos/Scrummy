@@ -2,20 +2,10 @@ import React from 'react';
 import { useContext } from 'react';
 import { dragContext } from './MainContainer';
 
-export default function Task({ task, id }) {
+export default function Task({ task, id, color }) {
 	// MAKE PATCH REQUEST TO UPDATE TASK STATUS
 
 	const { handleOnDrag, getData } = useContext(dragContext);
-	const colorCoder = {
-		23: '#d96e62',
-		24: '#708c6c',
-		25: '#a7cff2',
-		26: '#e8b168',
-		27: '#4287f5',
-		29: '#dbabc6',
-		31: 'gray',
-		33: '#b991db',
-	};
 
 	function changeStatus(newStatus) {
 		fetch('/api/task', {
@@ -51,7 +41,7 @@ export default function Task({ task, id }) {
 
 	// const classes = `task ${task.color}`;
 	const classes = 'task';
-	const styles = { backgroundColor: colorCoder[task.story_id] };
+	const styles = { backgroundColor: color };
 	// RENDER TASK COMPONENT
 	//
 	return (
